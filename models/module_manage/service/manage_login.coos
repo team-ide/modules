@@ -1,0 +1,45 @@
+package "module_manage";
+
+model ManageLoginPageRequest extends ManageLogin{
+    // 页码
+    pageNo int64
+    // 每页数量
+    pageSize int64
+}
+
+model ManageLoginPageResponse{
+    // 总数
+    total int64
+    list []*ManageLogin
+}
+
+model ManageLoginDeleteRequest{
+    loginIds []int64
+}
+
+
+@Impl("ManageLoginService", package="module_manage/manage_service")
+@ServiceField(manageLoginStorage=IManageLoginStorage)
+@Factory("ManageLoginService", package="module_manage/manage_factory")
+
+@WebApi(module="manage", package="module_manage/manage_api")
+@WebMapping("/manage/login/")
+
+@Object(IManageLoginStorage)
+interface IManageLoginService {
+
+    @NotWebApi
+    @DefaultValue(loginId = ManageId.GenLoginId)
+    @Call(insert)
+    add(in *ManageLogin)(err error){
+    }
+
+    @Call(page, assign="res.list")
+    @Call(count, assign="res.total")
+    page(in *ManageLoginPageRequest)(res *ManageLoginPageResponse,err error){
+    }
+
+    @Call(deleteByIds)
+    delete(in *ManageLoginDeleteRequest)(err error){
+    }
+}

@@ -1,0 +1,7 @@
+
+db_manage:
+  type: sqlite
+  databasePath: ./data/db_manage
+
+  # 支持的数据库类型  需要 引入相应的 方言和驱动
+  supportTypes: ["sqlite"]

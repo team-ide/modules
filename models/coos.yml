@@ -1,0 +1,13 @@
+
+# 指定配置文件
+confFile: conf/config.yml
+golang:
+  module: github.com/team-ide/modules
+  version: 1.22.0
+
+  modRequire:
+    - path: github.com/team-ide/framework
+      version: v1.0.1
+  genExcludePath:
+  genIncludePath:
+    - "module_*"

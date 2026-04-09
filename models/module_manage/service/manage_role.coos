@@ -1,0 +1,81 @@
+package "module_manage";
+
+model ManageRoleAddRequest extends ManageRole{
+
+}
+
+model ManageRoleAddResponse{
+
+}
+
+model ManageRoleDeleteRequest{
+    roleIds []int64
+}
+
+model ManageUserRoleRequest{
+    userId int64
+}
+
+model ManageAddRoleUsersResponse{
+    roleId int64
+    userIds []int64
+}
+
+model ManageAddRoleUserResponse{
+    roleId int64
+    userId int64
+}
+
+@Impl("ManageRoleService", package="module_manage/manage_service")
+@ServiceField(manageRoleStorage=IManageRoleStorage)
+@ServiceField(manageRoleUserStorage=IManageRoleUserStorage)
+@ServiceField(manageRolePermissionStorage=IManageRolePermissionStorage)
+@Factory("ManageRoleService", package="module_manage/manage_factory")
+
+@WebApi(module="manage", package="module_manage/manage_api")
+@WebMapping("/manage/role/")
+
+@Object(IManageRoleStorage)
+interface IManageRoleService {
+
+    @DefaultValue(roleId = ManageId.GenRoleId)
+    @Call(insert)
+    add(in *ManageRoleAddRequest)(res *ManageRoleAddResponse, err error){
+
+    }
+
+    @WebParam(type = "*ManageRoleDeleteRequest")
+    @Call(deleteByIds(roleIds))
+    delete(roleIds []int64)(err error){
+
+    }
+
+    @WebParam(type = "*ManageUserRoleRequest")
+    @Call(IManageRoleUserStorage.queryUserRoleIds(userId),assign="userRoleIds")
+    @Call(IManageRoleStorage.getByIds(userRoleIds), assign="res")
+    getUserRoles(userId int64)(res []*ManageRole, err error){
+
+    }
+
+
+    @WebParam(type = "*ManageAddRoleUsersResponse")
+    @for(range=userIds,value=userId)
+        @Call(addRoleUser(roleId, userId))
+    @end
+    addRoleUsers(roleId int64, userIds []int64)(err error){
+
+    }
+
+    @WebParam(type = "*ManageAddRoleUserResponse")
+    @Call(IManageRoleUserStorage.queryByRoleIdAndUserId(roleId, userId),assign="roleUsers")
+    @if(len(roleUsers) > 0)
+        @return
+    @end
+    @Var(a, type = "*ManageRoleUser",new)
+    @Set(a.roleId, value = roleId)
+    @Set(a.userId, value = userId)
+    @Call(IManageRoleUserStorage.insert(a))
+    addRoleUser(roleId int64, userId int64)(err error){
+
+    }
+}

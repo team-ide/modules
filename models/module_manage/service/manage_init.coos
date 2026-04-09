@@ -1,0 +1,18 @@
+package "module_manage";
+
+@Impl("ManageInitialize", package="module_manage/manage_service")
+@Factory("ManageInitialize", package="module_manage/manage_factory")
+
+interface IManageInitialize {
+
+    // 初始化管理员用户
+    initManageUser(name string, account string)(userId int64,err error){
+
+    }
+
+
+    // 初始化 超管 角色
+    initSuperRole(name string)(roleId int64,err error){
+
+    }
+}

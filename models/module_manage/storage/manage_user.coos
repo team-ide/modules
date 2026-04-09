@@ -1,0 +1,107 @@
+package "module_manage";
+
+
+@Install("v1.0.0", module="manage", source="db_manage");
+create table `manage_user`
+(
+    `user_id`      bigint(20) not null comment '用户 ID',
+    `name`         varchar(100) comment '名称',
+    `account`      varchar(100) comment '登录账号',
+    `salt`         varchar(50)  comment '密码 盐 设置密码时候 自动生成',
+    `password`     varchar(100) comment '密码  md5(salt + md5(password))',
+    `status`       int(10)  default 1  comment '状态 1：正常 2：禁用 9：删除',
+    `create_at`    bigint(20)   comment '创建 时间戳 毫秒',
+    `update_at`    bigint(20)   comment '修改 时间戳 毫秒',
+    `delete_at`    bigint(20)   comment '删除 时间戳 毫秒',
+    `disable_at`   bigint(20)   comment '禁用 时间戳 毫秒',
+    primary key (`user_id`),
+    index (`name`) comment '用于 根据 名称 查询',
+    index (`account`) comment '用于 根据 账号 查询',
+    index (`create_at`),
+    index (`update_at`),
+    index (`delete_at`),
+    index (`disable_at`),
+) comment '管理后台 用户';
+
+@Install("v1.0.0", module="manage", source="db_manage");
+alter table `manage_user` add column `xxx`   varchar(100) comment '名称';
+
+@Install("v1.0.0", module="manage", source="db_manage");
+alter table `manage_user` add index `xxx`   (`x`,`xx`) comment '名称';
+
+@Install("v1.0.0", module="manage", source="db_manage");
+alter table `manage_user` drop column `xxx`;
+
+@Install("v1.0.0", module="manage", source="db_manage");
+alter table `manage_user` drop index `xxx`;
+
+@Table("manage_user")
+model ManageUser{
+
+}
+
+@Impl("ManageUserStorage", package="module_manage/manage_storage")
+@Factory("ManageUserStorage", package="module_manage/manage_factory")
+
+@Model(ManageUser)
+interface IManageUserStorage {
+
+    @Storage()
+    func getById(id int64)(res *ManageUser, err error)
+
+    @Storage()
+    func getByIds(ids []int64)(res []*ManageUser, err error)
+
+    @Value(create_at = _nowTime)
+    @DefaultValue(status = 1)
+    @Storage()
+    func insert(in *ManageUser)(res int64, err error)
+
+    @Value(update_at = _nowTime)
+    @Storage()
+    func update(in *ManageUser)(res int64, err error)
+
+    @Value(update_at = _nowTime, status = 2, disable_at = _nowTime)
+    @Storage(update)
+    func disable(id int64)(res int64, err error)
+
+    @Value(update_at = _nowTime, status = 1)
+    @Storage(update)
+    func enable(id int64)(res int64, err error)
+
+    @Value(update_at = _nowTime)
+    @Storage()
+    func updatePassword(id int64, salt string, password string)(res int64, err error)
+
+    @Storage()
+    @Where("status != 9")
+    func queryByAccount(account string)(res []*ManageUser, err error)
+
+    @Storage()
+    @Where("status != 9")
+    func countByAccount(account string)(res int64, err error)
+
+    @Storage(update)
+    @Value(delete_at = _nowTime, status = 9)
+    func deleteByIds(ids []int64)(res int64, err error)
+
+    @Storage()
+    @Operator(name="%like%")
+    @Where("status != 9")
+    func query(in *ManageUser)(res []*ManageUser, err error)
+
+    @Storage()
+    @Operator(name="%like%")
+    @Where("status != 9")
+    func page(in *ManageUser, pageNo int64, pageSize int64)(res []*ManageUser, err error)
+
+    @Storage()
+    @Operator(name="%like%")
+    @Where("status != 9")
+    func count(in *ManageUser)(res int64, err error)
+
+    @Storage()
+    @Where("status = 9")
+    func removeByIds(ids []int64)(res int64, err error)
+
+}

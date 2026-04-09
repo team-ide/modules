@@ -1,0 +1,47 @@
+package "module_manage";
+
+model ManageUserAddRequest extends ManageUser{
+    password string
+}
+
+model ManageUserAddResponse{
+
+}
+
+model ManageUserDeleteRequest{
+    userIds []int64
+}
+
+@Impl("ManageUserService", package="module_manage/manage_service")
+@ServiceField(manageUserStorage=IManageUserStorage)
+@Factory("ManageUserService", package="module_manage/manage_factory")
+
+@WebApi(module="manage", package="module_manage/manage_api")
+@WebMapping("/manage/user/")
+
+@Object(IManageUserStorage)
+interface IManageUserService {
+
+    @Verify("name", required)
+    @Verify("password", required)
+    @Verify("account", unique, call = countByAccount)
+    @DefaultValue(userId = ManageId.GenUserId)
+    @Call(insert)
+    add(in *ManageUserAddRequest)(res *ManageUserAddResponse, err error){
+
+    }
+
+    delete(in *ManageUserDeleteRequest)(err error){
+
+    }
+
+    @WebParam(token, place="header")
+    a(token string)(err error){
+
+    }
+
+    @NotWebApi
+    xxx(in *ManageUserDeleteRequest)(err error){
+
+    }
+}

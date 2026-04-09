@@ -1,0 +1,147 @@
+package "module_manage";
+
+model LoginRequest{
+    account string required
+    password string required
+    // 浏览器 初始化一个 设备ID 可以是 UUID 等，生成同一个
+    deviceId string
+    // 验证码的 临时 key 验证的时候需要传入
+    securityCodeKey string
+    // 验证码
+    securityCode string
+
+    sourceType int
+    sourceInfo string
+}
+
+model LoginInfo{
+    user *ManageUser
+    roles []*ManageRole
+    login *ManageLogin
+}
+
+model LoginResponse extends LoginInfo{
+
+}
+
+model GetSecurityCodeRequest {
+    // 浏览器 初始化一个 设备ID 可以是 UUID 等，生成同一个
+    deviceId string
+    // 验证码 宽度
+    width int
+    // 验证码 高度
+    height int
+}
+
+model GetSecurityCodeResponse {
+    // 验证码的 base64 直接贴到 image src 展示
+    securityCodeBase64 string
+    // 过期时间 单位 分钟
+    expirationTime int
+    // 验证码的 临时 key 验证的时候需要传入
+    securityCodeKey string
+}
+
+@Impl("ManageService", package="module_manage/manage_service")
+@Factory("ManageService", package="module_manage/manage_factory")
+
+@WebApi(module="manage", package="module_manage/manage_api")
+@WebMapping("/")
+interface IManageService {
+    // 获取图形验证码
+    @NotLogin
+    @NotLog
+    @WebMapping("getSecurityCode")
+    getSecurityCode(in *GetSecurityCodeRequest) (out *GetSecurityCodeResponse, err error)
+
+
+    @NotWebApi
+    @Set(res, value = md5(salt + password))
+    EncodePassword(salt string, password string)(res string){
+
+    }
+    // 登录
+    @NotLogin
+    @Verify(account, required, message="登录账号不能为空")
+    @Verify(password, required, message="登录密码不能为空")
+    @Call(IManageUserStorage.queryByAccount(in.Account), assign="findUsers")
+    @Verify(findUsers, required, error=ERROR_ACCOUNT_OR_PASSWORD)
+    @Var(findUser, value = findUsers[0],type="*ManageUser")
+    @Call(EncodePassword(findUser.Salt, in.Password), assign="inPassword")
+    @Verify(findUser.password, neq=inPassword, error=ERROR_ACCOUNT_OR_PASSWORD)
+    @Verify(findUser.status, neq=1, error=ERROR_MANAGE_USER_INVALID)
+    @Var(login, type = "*ManageLogin",new)
+    @Value(login.UserId = findUser.UserId, login.UserAccount = findUser.Account, login.UserName = findUser.Name)
+    @Value(login.CreateAt = _nowTime, login.LoginAt = _nowTime, login.UseAt = _nowTime)
+    @Value(login.SourceType = in.SourceType, login.SourceInfo = in.SourceInfo)
+    @Value(login.LoginId = IManageId.genLoginId())
+    @Value(login.Token = uuid())
+    @Call(IManageLoginStorage.insert(login))
+    @Call(session(login.Token), assign="res")
+    login(in *LoginRequest)(res *LoginResponse,err error){
+
+    }
+
+    // 获取登录用户信息
+    @WebParam(token, place="header")
+    @Call(loadLogin(token), assign="res")
+    @Call(ILoginCache.add(res.LoginInfo))
+    session(token string) (res *LoginResponse, err error)
+
+    // 登出
+    @NotLogin
+    @WebParam(token, place="header")
+    logout(token string)(err error){
+
+    }
+    // 加载登录信息
+    @NotLogin
+    @Call(IManageLoginStorage.GetByToken(token), assign="login")
+    @if(login == nil)
+        @return
+    @end
+    @Call(IManageUserStorage.GetById(login.UserId), assign="user")
+    @if(user == nil)
+        @return
+    @end
+    @Call(IManageRoleService.getUserRoles(login.UserId), assign="userRoles")
+    @Set(res, new = "*LoginResponse")
+    @Set(res.LoginInfo, new = "*LoginInfo")
+    @Set(res.Login, value = login)
+    @Set(res.User, value = user)
+    @Set(res.Roles, value = userRoles)
+    loadLogin(token string) (res *LoginResponse, err error)
+}
+
+
+@Impl("ManageId", package="module_manage/manage_service")
+@Factory("ManageId", package="module_manage/manage_factory")
+interface IManageId {
+    @GenId("module_manage:manage_user")
+    genUserId()(res int64){
+
+    }
+
+    @GenId("module_manage:manage_role")
+    genRoleId()(res int64){
+
+    }
+
+    @GenId("module_manage:manage_login")
+    genLoginId()(res int64){
+
+    }
+
+    @GenId("module_manage:manage_log")
+    genLogId()(res int64){
+
+    }
+}
+
+
+@Factory("LoginCache", package="module_manage/manage_factory")
+interface ILoginCache {
+    Add(data *LoginInfo)
+    Get(token string) (res *LoginInfo)
+    GetIfPresent(token string) (res *LoginInfo)
+}

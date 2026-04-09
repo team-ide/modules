@@ -1,0 +1,148 @@
+package "module_manage";
+
+
+@Install("v1.0.0", module="manage", source="db_manage");
+create table `manage_role`
+(
+    `role_id`   bigint(20) not null comment '角色 ID',
+    `name`      varchar(100) comment '名称',
+    `is_super`  tinyint(3) comment '角色 是否 是超管 如果是 则拥有所有权限 1是 2否',
+    `create_at` bigint(20) comment '创建 时间戳 毫秒',
+    `update_at` bigint(20) comment '修改 时间戳 毫秒',
+    primary key (`role_id`),
+) comment '管理后台 角色';
+
+@Table("manage_role")
+model ManageRole{
+
+}
+
+@Impl("ManageRoleStorage", package="module_manage/manage_storage")
+@Factory("ManageRoleStorage", package="module_manage/manage_factory")
+
+@Model(ManageRole)
+interface IManageRoleStorage {
+
+    @Storage()
+    func getById(id int64)(res *ManageRole, err error)
+
+    @Storage()
+    func getByIds(ids []int64)(res []*ManageRole, err error)
+
+    @Value(create_at = _nowTime)
+    @Storage()
+    func insert(in *ManageRole)(res int64, err error)
+
+    @Value(update_at = _nowTime)
+    @Storage()
+    func update(in *ManageRole)(res int64, err error)
+
+    @Storage()
+    func deleteByIds(ids []int64)(res int64, err error)
+
+    @Storage()
+    @Operator(name="%like%")
+    func query(in *ManageRole)(res []*ManageRole, err error)
+
+    @Storage()
+    @Operator(name="%like%")
+    func page(in *ManageRole, pageNo int64, pageSize int64)(res []*ManageRole, err error)
+
+    @Storage()
+    @Operator(name="%like%")
+    func count(in *ManageRole)(res int64, err error)
+
+}
+
+
+@Install("v1.0.0", module="manage", source="db_manage");
+create table `manage_role_permission`
+(
+    `role_permission_id`    bigint(20) not null comment '角色 权限 ID',
+    `role_id`    bigint(20) not null comment '角色 ID',
+    `permission` varchar(1000) comment '权限 如：/admin/user/add',
+    `create_at`  bigint(20) comment '创建 时间戳 毫秒',
+    `update_at`  bigint(20) comment '修改 时间戳 毫秒',
+    primary key (`role_permission_id`),
+    index (`role_id`) comment '用于 根据 角色 查询',
+) comment '管理后台 角色 权限';
+
+@Table("manage_role_permission")
+model ManageRolePermission{
+
+}
+
+@Impl("ManageRolePermissionStorage", package="module_manage/manage_storage")
+@Factory("ManageRolePermissionStorage", package="module_manage/manage_factory")
+
+@Model(ManageRolePermission)
+interface IManageRolePermissionStorage {
+
+    @Value(create_at = _nowTime)
+    @Storage()
+    func insert(in *ManageRolePermission)(res int64, err error)
+
+    @Storage()
+    func deleteByIds(ids []int64)(res int64, err error)
+
+    @Storage()
+    func queryByRoleId(roleId int64)(res []*ManageRolePermission, err error)
+
+    @Storage()
+    func query(in *ManageRolePermission)(res []*ManageRolePermission, err error)
+
+}
+
+
+@Install("v1.0.0", module="manage", source="db_manage");
+create table `manage_role_user`
+(
+    `role_user_id`    bigint(20) not null comment '角色 用户 ID',
+    `role_id`    bigint(20) not null comment '角色 ID',
+    `user_id`    bigint(20) not null comment '用户 ID',
+    `create_at`  bigint(20) comment '创建 时间戳 毫秒',
+    `update_at`  bigint(20) comment '修改 时间戳 毫秒',
+    primary key (`role_user_id`),
+    index (`role_id`) comment '用于 根据 角色 查询',
+    index (`user_id`) comment '用于 根据 用户 查询',
+) comment '管理后台 角色 用户';
+
+@Table("manage_role_user")
+model ManageRoleUser {
+
+}
+
+@Impl("ManageRoleUserStorage", package="module_manage/manage_storage")
+@Factory("ManageRoleUserStorage", package="module_manage/manage_factory")
+
+@Model(ManageRoleUser)
+interface IManageRoleUserStorage {
+
+    @Value(create_at = _nowTime)
+    @Storage()
+    func insert(in *ManageRoleUser)(res int64, err error)
+
+    @Storage()
+    func deleteByIds(ids []int64)(res int64, err error)
+
+    @Storage()
+    func queryByRoleId(roleId int64)(res []*ManageRoleUser, err error)
+
+    @Storage(field="userId")
+    @Where(roleId = roleId)
+    func queryRoleUserIds(roleId int64)(res []int64, err error)
+
+    @Storage()
+    func queryByUserId(userId int64)(res []*ManageRoleUser, err error)
+
+    @Storage(field="roleId")
+    @Where(userId = userId)
+    func queryUserRoleIds(userId int64)(res []int64, err error)
+
+    @Storage()
+    func query(in *ManageRoleUser)(res []*ManageRoleUser, err error)
+
+    @Storage()
+    func queryByRoleIdAndUserId(roleId int64, userId int64)(res []*ManageRoleUser, err error)
+
+}

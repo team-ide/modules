@@ -1,0 +1,88 @@
+package "module_manage";
+
+
+@Install("v1.0.0", module="manage", source="db_manage");
+create table `manage_login`
+(
+	`login_id` bigint(20) not null comment '登录id',
+	`user_id` bigint(20) comment '用户ID',
+	`user_account` varchar(50) comment '用户 账号',
+	`user_name` varchar(50) comment '用户 名称',
+	`login_ip` varchar(50) comment '登录 ip',
+	`source_type` int(10) comment '来源 类型',
+	`source_info` varchar(100) comment '来源 信息',
+	`token` varchar(100) comment '验证票据',
+	`status` int(10) default 1 comment '状态 1：登录 2：登出 9：删除',
+	`login_at` bigint(20) comment '登录 时间',
+	`logout_at` bigint(20) comment '登出 时间',
+	`create_at` bigint(20) comment '创建 时间',
+	`update_at` bigint(20) comment '修改 时间',
+	`delete_at` bigint(20) comment '删除 时间',
+	`use_at` bigint(20) comment '使用 时间',
+	primary key (login_id),
+	index (`user_id`),
+    index (`user_account`),
+    index (`user_name`),
+    index (`source_type`),
+    index (`token`),
+    index (`create_at`),
+    index (`logout_at`),
+    index (`use_at`),
+) comment '管理后台 用户 登录记录';
+
+
+@Table("manage_login")
+model ManageLogin{
+
+}
+
+@Impl("ManageLoginStorage", package="module_manage/manage_storage")
+@Factory("ManageLoginStorage", package="module_manage/manage_factory")
+
+@Model(ManageLogin)
+interface IManageLoginStorage {
+
+    @Storage()
+    func getById(id int64)(res *ManageLogin, err error)
+
+    @Storage()
+    func getByToken(token string)(res *ManageLogin, err error)
+
+    @Value(create_at = _nowTime)
+    @DefaultValue(status = 1)
+    @Storage()
+    func insert(in *ManageLogin)(res int64, err error)
+
+    @Value(update_at = _nowTime)
+    @Storage()
+    func update(in *ManageLogin)(res int64, err error)
+
+    @Value(update_at = _nowTime, status = 2, logout_at = _nowTime)
+    @Storage(update)
+    func logout(id int64)(res int64, err error)
+
+    @Value(update_at = _nowTime, use_at = _nowTime)
+    @Storage(update)
+    func use(id int64)(res int64, err error)
+
+    @Value(delete_at = _nowTime, status = 9)
+    @Storage(update)
+    func deleteByIds(ids []int64)(res int64, err error)
+
+    @Storage()
+    @Where("status != 9")
+    func query(in *ManageLogin)(res []*ManageLogin, err error)
+
+    @Storage()
+    @Where("status != 9")
+    func page(in *ManageLogin, pageNo int64, pageSize int64)(res []*ManageLogin, err error)
+
+    @Storage()
+    @Where("status != 9")
+    func count(in *ManageLogin)(res int64, err error)
+
+    @Storage()
+    @Where("status = 9")
+    func removeByIds(ids []int64)(res int64, err error)
+
+}
