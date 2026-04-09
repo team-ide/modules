@@ -1,0 +1,135 @@
+#
+
+web_api:
+  port: "${ssss:10011}"
+
+
+web_manage:
+  port: 10012
+
+# 数据库 test_1 组件配置
+db_test_1:
+  # 数据库类型
+  type: sqlite
+  # 方言类型 默认使用 type
+  dialectType:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: 123456
+  # 库名 请参照相应数据库驱动 DSN 看是否支持配置
+  database: test_db
+  # 模式名 请参照相应数据库驱动 DSN 看是否支持配置
+  schema:
+  # 数据库文件路径，通常 本地数据库使用
+  databasePath: ./data/test_db_1
+
+  # 支持的数据库类型  需要 引入相应的 方言和驱动
+  supportTypes: ["sqlite", "mysql", "opengauss"]
+
+  # 额外的参数配置 使用 map[string]string
+  params:
+    - key: "value"
+
+
+
+# 数据库 test_2 组件配置
+db_test_2:
+  type: sqlite
+  # 数据库文件路径，通常 本地数据库使用
+  databasePath: ./data/test_db_2
+
+  # 支持的数据库类型  需要 引入相应的 方言和驱动
+  supportTypes: ["sqlite", "mysql"]
+
+# Redis test_1 组件配置
+redis_test_1:
+  disabled: true
+  # 如果是集群 使用 `;` 分割多个 如："127.0.0.1:11;127.0.0.2:22"
+  address: 127.0.0.1:6379
+  # 如果开启了认证，请输入认证密钥
+  auth:
+  # cert 证书 路径
+  certPath:
+  # 如果配置用户名 则填写
+  username:
+  # 如果需要指定库 请配置
+  database:
+  # 不存在的值 是否抛出异常
+  throwNotFoundErr: false
+  # TLS 跳过验证
+  insecureSkipVerify: false
+
+
+# Zookeeper test_1 组件配置
+zk_test_1:
+  disabled: true
+  # 如果是集群 使用 `;` 分割多个 如："127.0.0.1:11;127.0.0.2:22"
+  address: 127.0.0.1:2181
+  # 如果配置用户名 则填写
+  username:
+  # 如果配置密码 则填写
+  password:
+  # 会话超时时间 单位 毫秒 默认 60_000
+  sessionTimeout:
+  # 连接超时时间 单位 毫秒 默认 10_000
+  connectionTimeout:
+
+
+# Kafka test_1 组件配置
+kafka_test_1:
+  disabled: true
+  # 如果是集群 使用 `;` 分割多个 如："127.0.0.1:11;127.0.0.2:22"
+  address: 127.0.0.1:9092
+  # 如果配置用户名 则填写
+  username:
+  # 如果配置密码 则填写
+  password:
+  # cert 证书 路径
+  certPath:
+
+# ElasticSearch test_1 组件配置
+es_test_1:
+  disabled: true
+  # 如果是集群 使用 `;` 分割多个 如："127.0.0.1:11;127.0.0.2:22"
+  url: http://127.0.0.1:9200
+  # 如果配置用户名 则填写
+  username:
+  # 如果配置密码 则填写
+  password:
+  # cert 证书 路径
+  certPath:
+
+# MongoDB test_1 组件配置
+mongodb_test_1:
+  disabled: true
+  # 如果是集群 使用 `;` 分割多个 如："127.0.0.1:11;127.0.0.2:22"
+  url: http://127.0.0.1:27018
+  # 如果配置用户名 则填写
+  username:
+  # 如果配置密码 则填写
+  password:
+  # 最小连接数 默认 0
+  minPoolSize:
+  # 最大连接数 默认 0
+  maxPoolSize:
+  # 连接超时时间 单位 毫秒 默认 0
+  connectTimeout:
+  # cert 证书 路径
+  certPath:
+
+
+# 日志配置
+log:
+  # 输出到控制台
+  console: false
+  # 日志路径
+  filename: ./logs/server.log
+  # 文件大小 单位 M
+  maxSize: 100
+  # 保留多少天
+  maxAge: 7
+  # 最多几个文件
+  maxBackups: 10
+  # 级别，debug，info，warn，error
+  level: debug

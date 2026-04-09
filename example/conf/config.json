@@ -1,0 +1,87 @@
+{
+  "web_api": {
+    "port": "${ssss:10011}"
+  },
+  "web_manage": {
+    "port": 10012
+  },
+  "db_test_1": {
+    "type": "sqlite",
+    "dialectType": null,
+    "host": "127.0.0.1",
+    "port": 3306,
+    "username": "root",
+    "password": 123456,
+    "database": "test_db",
+    "schema": null,
+    "databasePath": "./out/test_db_1",
+    "supportTypes": [
+      "sqlite",
+      "mysql",
+      "opengauss"
+    ],
+    "params": [
+      {
+        "key": "value"
+      }
+    ]
+  },
+  "db_test_2": {
+    "type": "sqlite",
+    "databasePath": "./out/test_db_2",
+    "supportTypes": [
+      "sqlite",
+      "mysql"
+    ]
+  },
+  "redis_test_1": {
+    "disabled": true,
+    "address": "127.0.0.1:6379",
+    "auth": null,
+    "certPath": null,
+    "username": null,
+    "database": null,
+    "throwNotFoundErr": false,
+    "insecureSkipVerify": false
+  },
+  "zk_test_1": {
+    "disabled": true,
+    "address": "127.0.0.1:2181",
+    "username": null,
+    "password": null,
+    "sessionTimeout": null,
+    "connectionTimeout": null
+  },
+  "kafka_test_1": {
+    "disabled": true,
+    "address": "127.0.0.1:9092",
+    "username": null,
+    "password": null,
+    "certPath": null
+  },
+  "es_test_1": {
+    "disabled": true,
+    "url": "http://127.0.0.1:9200",
+    "username": null,
+    "password": null,
+    "certPath": null
+  },
+  "mongodb_test_1": {
+    "disabled": true,
+    "url": "http://127.0.0.1:27018",
+    "username": null,
+    "password": null,
+    "minPoolSize": null,
+    "maxPoolSize": null,
+    "connectTimeout": null,
+    "certPath": null
+  },
+  "log": {
+    "console": false,
+    "filename": "./logs/server.log",
+    "maxSize": 100,
+    "maxAge": 7,
+    "maxBackups": 10,
+    "level": "debug"
+  }
+}

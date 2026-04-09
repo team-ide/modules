@@ -1,0 +1,53 @@
+[web_api]
+port = "${ssss:10011}"
+
+[web_manage]
+port = 10_012
+
+[db_test_1]
+type = "sqlite"
+host = "127.0.0.1"
+port = 3_306
+username = "root"
+password = 123_456
+database = "test_db"
+databasePath = "./out/test_db_1"
+supportTypes = [ "sqlite", "mysql", "opengauss" ]
+
+[[db_test_1.params]]
+key = "value"
+
+[db_test_2]
+type = "sqlite"
+databasePath = "./out/test_db_2"
+supportTypes = [ "sqlite", "mysql" ]
+
+[redis_test_1]
+disabled = true
+address = "127.0.0.1:6379"
+throwNotFoundErr = false
+insecureSkipVerify = false
+
+[zk_test_1]
+disabled = true
+address = "127.0.0.1:2181"
+
+[kafka_test_1]
+disabled = true
+address = "127.0.0.1:9092"
+
+[es_test_1]
+disabled = true
+url = "http://127.0.0.1:9200"
+
+[mongodb_test_1]
+disabled = true
+url = "http://127.0.0.1:27018"
+
+[log]
+console = false
+filename = "./logs/server.log"
+maxSize = 100
+maxAge = 7
+maxBackups = 10
+level = "debug"
