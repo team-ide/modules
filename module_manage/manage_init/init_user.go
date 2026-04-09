@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/team-ide/framework"
 	"github.com/team-ide/framework/util"
@@ -33,13 +34,18 @@ func InitManageSuperUser(name string, account string, saveFile string) (err erro
 		return
 	}
 	user := &module_manage.ManageUser{}
+	var saveData = map[string]any{}
 	if saveFile != "" {
 		if e, _ := util.PathExists(saveFile); e {
 			bs, _ := os.ReadFile(saveFile)
 			if len(bs) > 0 {
-				_ = json.Unmarshal(bs, user)
+				_ = json.Unmarshal(bs, &saveData)
 			}
 		}
+		user.Name = util.GetStringValue(saveData["name"])
+		user.Account = util.GetStringValue(saveData["account"])
+		user.Salt = util.GetStringValue(saveData["salt"])
+		user.Password = util.GetStringValue(saveData["password"])
 	}
 	if user.Name != name {
 		user.Name = name
@@ -67,9 +73,17 @@ func InitManageSuperUser(name string, account string, saveFile string) (err erro
 		return
 	}
 	user.Password = password
-	bs, _ := json.MarshalIndent(user, "", "\t")
 
 	if saveFile != "" {
+		saveData["userId"] = user.UserId
+		saveData["name"] = user.Name
+		saveData["account"] = user.Account
+		saveData["salt"] = user.Salt
+		saveData["password"] = password
+		saveData["createAt"] = time.Now()
+
+		bs, _ := json.MarshalIndent(saveData, "", "\t")
+
 		saveDir := filepath.Dir(saveFile)
 		if err = os.MkdirAll(saveDir, os.ModePerm); err != nil {
 			return

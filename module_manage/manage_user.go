@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_user.coos] 在 [2026-04-02 18:11] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_user.coos] 在 [2026-04-09 16:07] 生成
 
 package module_manage
 
@@ -25,8 +25,8 @@ type ManageUser struct {
 	UserId    int64  `json:"userId" column:"user_id"`
 	Name      string `json:"name" column:"name"`
 	Account   string `json:"account" column:"account"`
-	Salt      string `json:"salt" column:"salt"`
-	Password  string `json:"password" column:"password"`
+	Salt      string `json:"-" column:"salt"`
+	Password  string `json:"-" column:"password"`
 	Status    int    `json:"status" column:"status"`
 	CreateAt  int64  `json:"createAt" column:"create_at"`
 	UpdateAt  int64  `json:"updateAt" column:"update_at"`

@@ -36,6 +36,8 @@ alter table `manage_user` drop column `xxx`;
 alter table `manage_user` drop index `xxx`;
 
 @Table("manage_user")
+@Field(salt, json="-")
+@Field(password, json="-")
 model ManageUser{
 
 }
