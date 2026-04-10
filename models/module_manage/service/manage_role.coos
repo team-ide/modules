@@ -27,9 +27,6 @@ model ManageAddRoleUserResponse{
 }
 
 @Impl("ManageRoleService", package="module_manage/manage_service")
-@ServiceField(manageRoleStorage=IManageRoleStorage)
-@ServiceField(manageRoleUserStorage=IManageRoleUserStorage)
-@ServiceField(manageRolePermissionStorage=IManageRolePermissionStorage)
 @Factory("ManageRoleService", package="module_manage/manage_factory")
 
 @WebApi(module="manage", package="module_manage/manage_api")
@@ -67,7 +64,7 @@ interface IManageRoleService {
     }
 
     @WebParam(type = "*ManageAddRoleUserResponse")
-    @Call(IManageRoleUserStorage.queryByRoleIdAndUserId(roleId, userId),assign="roleUsers")
+    @Call(IManageRoleUserStorage.queryByRoleIdAndUserId(roleId, userId), assign="roleUsers")
     @if(len(roleUsers) > 0)
         @return
     @end

@@ -15,9 +15,13 @@ model LoginRequest{
 }
 
 model LoginInfo{
+    loginId int64
+    token string
+    useAt int64
+    loginAt int64
     user *ManageUser
     roles []*ManageRole
-    login *ManageLogin
+    permissions []*ManagePermission
 }
 
 model LoginResponse extends LoginInfo{
@@ -105,11 +109,19 @@ interface IManageService {
         @return
     @end
     @Call(IManageRoleService.getUserRoles(login.UserId), assign="userRoles")
+    @Var(userRoleIds, value = userRoles.roleId)
+    @Call(IManagePermissionService.queryByRoleIds(userRoleIds), assign="rolePermissions")
+    @Call(IManagePermissionService.queryByUserIds(login.UserId), assign="userPermissions")
     @Set(res, new = "*LoginResponse")
     @Set(res.LoginInfo, new = "*LoginInfo")
-    @Set(res.Login, value = login)
+    @Set(res.loginId, value = login.loginId)
+    @Set(res.token, value = login.token)
+    @Set(res.loginAt, value = login.loginAt)
+    @Set(res.useAt, value = login.useAt)
     @Set(res.User, value = user)
     @Set(res.Roles, value = userRoles)
+    @Set(res.permissions, append = rolePermissions)
+    @Set(res.permissions, append = userPermissions)
     loadLogin(token string) (res *LoginResponse, err error)
 }
 
@@ -124,6 +136,11 @@ interface IManageId {
 
     @GenId("module_manage:manage_role")
     genRoleId()(res int64){
+
+    }
+
+    @GenId("module_manage:manage_permission")
+    genPermissionId()(res int64){
 
     }
 

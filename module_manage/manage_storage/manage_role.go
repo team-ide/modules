@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-09 11:11] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 10:27] 生成
 
 package manage_storage
 
@@ -83,50 +83,6 @@ func (this_ *ManageRoleStorage) Count(in *module_manage.ManageRole) (res int64, 
 	m := this_.dbService.ModelCount(in)
 	m.WhereOperator("name", "%like%")
 	res, err = m.Count(context.Background())
-	return
-}
-
-func NewManageRolePermissionStorage(dbService db.IService) *ManageRolePermissionStorage {
-	res := &ManageRolePermissionStorage{}
-	res.dbService = dbService
-	return res
-}
-
-type ManageRolePermissionStorage struct {
-	dbService db.IService
-}
-
-func (this_ *ManageRolePermissionStorage) Insert(in *module_manage.ManageRolePermission) (res int64, err error) {
-	in.CreateAt = time.Now().UnixMilli()
-	r, err := this_.dbService.Insert(context.Background(), in)
-	if err != nil {
-		return
-	}
-	res, err = r.RowsAffected()
-	return
-}
-
-func (this_ *ManageRolePermissionStorage) DeleteByIds(ids []int64) (res int64, err error) {
-	m := this_.dbService.SqlDelete("manage_role_permission")
-	m.Where().In("role_permission_id", ids)
-	r, err := m.Exec(context.Background())
-	if err != nil {
-		return
-	}
-	res, err = r.RowsAffected()
-	return
-}
-
-func (this_ *ManageRolePermissionStorage) QueryByRoleId(roleId int64) (res []*module_manage.ManageRolePermission, err error) {
-	m := this_.dbService.SqlSelect("manage_role_permission")
-	m.Where().Eq("role_id", roleId)
-	res, err = db.DoQueryListWithModel[*module_manage.ManageRolePermission](context.Background(), m)
-	return
-}
-
-func (this_ *ManageRolePermissionStorage) Query(in *module_manage.ManageRolePermission) (res []*module_manage.ManageRolePermission, err error) {
-	m := this_.dbService.ModelSelect(in)
-	res, err = db.DoQueryListWithModel[*module_manage.ManageRolePermission](context.Background(), m)
 	return
 }
 

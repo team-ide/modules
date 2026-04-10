@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/service/manage.coos] 在 [2026-04-09 11:11] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/service/manage.coos] 在 [2026-04-10 14:11] 生成
 
 package module_manage
 
@@ -30,9 +30,13 @@ type LoginRequest struct {
 }
 
 type LoginInfo struct {
-	User  *ManageUser   `json:"user"`
-	Roles []*ManageRole `json:"roles"`
-	Login *ManageLogin  `json:"login"`
+	LoginId     int64               `json:"loginId"`
+	Token       string              `json:"token"`
+	UseAt       int64               `json:"useAt"`
+	LoginAt     int64               `json:"loginAt"`
+	User        *ManageUser         `json:"user"`
+	Roles       []*ManageRole       `json:"roles"`
+	Permissions []*ManagePermission `json:"permissions"`
 }
 
 type LoginResponse struct {
@@ -64,6 +68,8 @@ var IdTypeModuleManageManageUser = module_id.IdType("module_manage:manage_user")
 
 var IdTypeModuleManageManageRole = module_id.IdType("module_manage:manage_role")
 
+var IdTypeModuleManageManagePermission = module_id.IdType("module_manage:manage_permission")
+
 var IdTypeModuleManageManageLogin = module_id.IdType("module_manage:manage_login")
 
 var IdTypeModuleManageManageLog = module_id.IdType("module_manage:manage_log")
@@ -71,6 +77,7 @@ var IdTypeModuleManageManageLog = module_id.IdType("module_manage:manage_log")
 type IManageId interface {
 	GenUserId() (res int64)
 	GenRoleId() (res int64)
+	GenPermissionId() (res int64)
 	GenLoginId() (res int64)
 	GenLogId() (res int64)
 }

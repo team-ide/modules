@@ -1,0 +1,83 @@
+package "module_manage";
+
+model ManagePermissionAddRequest extends ManagePermission{
+
+}
+
+model ManagePermissionAddResponse{
+
+}
+
+model ManagePermissionDeleteRequest{
+    permissionIds []int64
+    roleIds []int64
+    userIds []int64
+}
+
+model ManagePermissionQueryRequest{
+    permissionIds []int64
+    roleIds []int64
+    userIds []int64
+}
+
+
+@Impl("ManagePermissionService", package="module_manage/manage_service")
+@Factory("ManagePermissionService", package="module_manage/manage_factory")
+
+@WebApi(module="manage", package="module_manage/manage_api")
+@WebMapping("/manage/permission/")
+
+interface IManagePermissionService {
+
+    @DefaultValue(permissionId = ManageId.genPermissionId)
+    @Call(IManagePermissionStorage.insert)
+    add(in *ManagePermissionAddRequest)(res *ManagePermissionAddResponse, err error){
+
+    }
+
+    @Var(list, type="[]*ManagePermission")
+    @if(len(in.permissionIds) > 0)
+        @Call(queryByIds(in.permissionIds), assign="list")
+        @Set(res, append = list)
+    @end
+    @if(len(in.roleIds) > 0)
+        @Call(queryByRoleIds(in.roleIds), assign="list")
+        @Set(res, append = list)
+    @end
+    @if(len(in.userIds) > 0)
+        @Call(queryByUserIds(in.userIds), assign="list")
+        @Set(res, append = list)
+    @end
+    query(in *ManagePermissionQueryRequest)(res []*ManagePermission, err error){
+
+    }
+
+    @Call(IManagePermissionStorage.queryByIds(ids), assign="res")
+    queryByIds(ids []int64)(res []*ManagePermission, err error){
+
+    }
+
+    @Call(IManagePermissionStorage.queryByRoleIds(roleIds), assign="res")
+    queryByRoleIds(roleIds []int64)(res []*ManagePermission, err error){
+
+    }
+
+    @Call(IManagePermissionStorage.queryByUserIds(userIds), assign="res")
+    queryByUserIds(userIds []int64)(res []*ManagePermission, err error){
+
+    }
+
+    @if(len(in.permissionIds) > 0)
+        @Call(IManagePermissionStorage.deleteByIds(in.permissionIds))
+    @end
+    @if(len(in.roleIds) > 0)
+        @Call(IManagePermissionStorage.deleteByRoleIds(in.roleIds))
+    @end
+    @if(len(in.userIds) > 0)
+        @Call(IManagePermissionStorage.deleteByUserIds(in.userIds))
+    @end
+    delete(in *ManagePermissionDeleteRequest)(err error){
+
+    }
+
+}

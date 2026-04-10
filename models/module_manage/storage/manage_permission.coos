@@ -1,0 +1,65 @@
+package "module_manage";
+
+
+@Install("v1.0.0", module="manage", source="db_manage");
+create table `manage_permission`
+(
+    `permission_id`    bigint(20) not null comment '角色 权限 ID',
+    `role_id`    bigint(20) not null comment '角色 ID 给角色授权',
+    `user_id`    bigint(20) not null comment '用户 ID 给用户授权',
+    `permission_type` varchar(100) comment '权限类型 path: 路径 button: 按钮 tag: 标签 page: 页面',
+    `permission` varchar(1000) comment '权限 根据类型设置 如：/admin/user/add',
+    `authorizable` int(10) comment '可授权 2:不可授权 1:可以授权',
+    `start_at`  bigint(20) comment '权限开始 时间戳 毫秒',
+    `expired_at` bigint(20) comment '过期 时间戳 毫秒',
+    `expired_duration` bigint(20) comment '过期时间 分钟  ',
+    `create_at`  bigint(20) comment '创建 时间戳 毫秒',
+    `update_at`  bigint(20) comment '修改 时间戳 毫秒',
+    primary key (`permission_id`),
+    index (`role_id`) comment '用于 根据 角色 查询',
+    index (`user_id`) comment '用于 根据 用户 查询',
+) comment '管理后台 权限';
+
+@Table("manage_permission")
+model ManagePermission{
+
+}
+
+@Impl("ManagePermissionStorage", package="module_manage/manage_storage")
+@Factory("ManagePermissionStorage", package="module_manage/manage_factory")
+
+@Model(ManagePermission)
+interface IManagePermissionStorage {
+
+    @Value(create_at = _nowTime)
+    @Storage()
+    func insert(in *ManagePermission)(res int64, err error)
+
+    @Storage()
+    func queryByIds(ids []int64)(res []*ManagePermission, err error)
+
+    @Storage()
+    func queryByRoleId(roleId int64)(res []*ManagePermission, err error)
+
+    @Storage()
+    func queryByRoleIds(roleIds []int64)(res []*ManagePermission, err error)
+
+    @Storage()
+    func queryByUserId(userId int64)(res []*ManagePermission, err error)
+
+    @Storage()
+    func queryByUserIds(userIds []int64)(res []*ManagePermission, err error)
+
+    @Storage()
+    func query(in *ManagePermission)(res []*ManagePermission, err error)
+
+    @Storage()
+    func deleteByIds(ids []int64)(res int64, err error)
+
+    @Storage()
+    func deleteByRoleIds(roleIds []int64)(res int64, err error)
+
+    @Storage()
+    func deleteByUserIds(userIds []int64)(res int64, err error)
+
+}

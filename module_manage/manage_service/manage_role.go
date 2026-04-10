@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-09 11:11] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 14:03] 生成
 
 package manage_service
 
@@ -8,18 +8,12 @@ import (
 	"github.com/team-ide/modules/module_manage/manage_factory"
 )
 
-func NewManageRoleService(manageRoleStorage module_manage.IManageRoleStorage, manageRoleUserStorage module_manage.IManageRoleUserStorage, manageRolePermissionStorage module_manage.IManageRolePermissionStorage) *ManageRoleService {
+func NewManageRoleService() *ManageRoleService {
 	res := &ManageRoleService{}
-	res.manageRoleStorage = manageRoleStorage
-	res.manageRoleUserStorage = manageRoleUserStorage
-	res.manageRolePermissionStorage = manageRolePermissionStorage
 	return res
 }
 
 type ManageRoleService struct {
-	manageRoleStorage           module_manage.IManageRoleStorage
-	manageRoleUserStorage       module_manage.IManageRoleUserStorage
-	manageRolePermissionStorage module_manage.IManageRolePermissionStorage
 }
 
 func (this_ *ManageRoleService) Add(in *module_manage.ManageRoleAddRequest) (res *module_manage.ManageRoleAddResponse, err error) {

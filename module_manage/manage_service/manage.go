@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-09 11:11] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 14:11] 生成
 
 package manage_service
 
@@ -119,11 +119,30 @@ func (this_ *ManageService) LoadLogin(token string) (res *module_manage.LoginRes
 		framework.Error("call ManageRoleService func GetUserRoles error:" + err.Error())
 		return
 	}
+	var userRoleIds []int64
+	for _, _one := range userRoles {
+		userRoleIds = append(userRoleIds, _one.RoleId)
+	}
+	rolePermissions, err := manage_factory.ManagePermissionService.QueryByRoleIds(userRoleIds)
+	if err != nil {
+		framework.Error("call ManagePermissionService func QueryByRoleIds error:" + err.Error())
+		return
+	}
+	userPermissions, err := manage_factory.ManagePermissionService.QueryByUserIds([]int64{login.UserId})
+	if err != nil {
+		framework.Error("call ManagePermissionService func QueryByUserIds error:" + err.Error())
+		return
+	}
 	res = &module_manage.LoginResponse{}
 	res.LoginInfo = &module_manage.LoginInfo{}
-	res.Login = login
+	res.LoginId = login.LoginId
+	res.Token = login.Token
+	res.LoginAt = login.LoginAt
+	res.UseAt = login.UseAt
 	res.User = user
 	res.Roles = userRoles
+	res.Permissions = append(res.Permissions, rolePermissions...)
+	res.Permissions = append(res.Permissions, userPermissions...)
 	return
 }
 
@@ -148,6 +167,15 @@ func (this_ *ManageId) GenRoleId() (res int64) {
 	res, err := module_id.IdWorker.GetId(context.Background(), module_manage.IdTypeModuleManageManageRole)
 	if err != nil {
 		framework.Error("id worker get [IdTypeModuleManageManageRole] id error:" + err.Error())
+		return
+	}
+	return
+}
+
+func (this_ *ManageId) GenPermissionId() (res int64) {
+	res, err := module_id.IdWorker.GetId(context.Background(), module_manage.IdTypeModuleManageManagePermission)
+	if err != nil {
+		framework.Error("id worker get [IdTypeModuleManageManagePermission] id error:" + err.Error())
 		return
 	}
 	return

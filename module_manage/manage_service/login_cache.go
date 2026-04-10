@@ -28,7 +28,7 @@ type LoginCache struct {
 }
 
 func (this_ *LoginCache) Add(data *module_manage.LoginInfo) {
-	this_.Set(data.Login.Token, data)
+	this_.Set(data.Token, data)
 	return
 }
 

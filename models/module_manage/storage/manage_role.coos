@@ -56,45 +56,6 @@ interface IManageRoleStorage {
 
 
 @Install("v1.0.0", module="manage", source="db_manage");
-create table `manage_role_permission`
-(
-    `role_permission_id`    bigint(20) not null comment '角色 权限 ID',
-    `role_id`    bigint(20) not null comment '角色 ID',
-    `permission` varchar(1000) comment '权限 如：/admin/user/add',
-    `create_at`  bigint(20) comment '创建 时间戳 毫秒',
-    `update_at`  bigint(20) comment '修改 时间戳 毫秒',
-    primary key (`role_permission_id`),
-    index (`role_id`) comment '用于 根据 角色 查询',
-) comment '管理后台 角色 权限';
-
-@Table("manage_role_permission")
-model ManageRolePermission{
-
-}
-
-@Impl("ManageRolePermissionStorage", package="module_manage/manage_storage")
-@Factory("ManageRolePermissionStorage", package="module_manage/manage_factory")
-
-@Model(ManageRolePermission)
-interface IManageRolePermissionStorage {
-
-    @Value(create_at = _nowTime)
-    @Storage()
-    func insert(in *ManageRolePermission)(res int64, err error)
-
-    @Storage()
-    func deleteByIds(ids []int64)(res int64, err error)
-
-    @Storage()
-    func queryByRoleId(roleId int64)(res []*ManageRolePermission, err error)
-
-    @Storage()
-    func query(in *ManageRolePermission)(res []*ManageRolePermission, err error)
-
-}
-
-
-@Install("v1.0.0", module="manage", source="db_manage");
 create table `manage_role_user`
 (
     `role_user_id`    bigint(20) not null comment '角色 用户 ID',
