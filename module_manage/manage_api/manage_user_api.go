@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-09 11:11] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 17:29] 生成
 
 package manage_api
 
@@ -8,10 +8,15 @@ import (
 	"github.com/team-ide/modules/module_manage/manage_factory"
 )
 
+func NewWebApiManageUserService() *WebApiManageUserService {
+	res := &WebApiManageUserService{}
+	return res
+}
+
 type WebApiManageUserService struct {
 }
 
-func (this_ *WebApiManageUserService) GetWebApi(webApi *web.WebApi) {
+func (this_ *WebApiManageUserService) GetWebApi() (webApi *web.WebApi) {
 	webApi = web.NewWebApi("/manage/user/")
 	webApi.Add("add", this_.Add)
 	webApi.Add("delete", this_.Delete)
@@ -41,7 +46,7 @@ func (this_ *WebApiManageUserService) Delete(request *web.WebRequest) (res any, 
 
 func (this_ *WebApiManageUserService) A(request *web.WebRequest) (res any, err error) {
 	var token string
-	token = request.GetHeader(token)
+	token = request.GetHeader("token")
 
 	err = manage_factory.ManageUserService.A(token)
 	return

@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 10:27] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 16:15] 生成
 
 package manage_factory
 
@@ -13,6 +13,10 @@ var ManageId module_manage.IManageId
 var LoginCache module_manage.ILoginCache
 
 var ManageInitialize module_manage.IManageInitialize
+
+var ManageLogService module_manage.IManageLogService
+
+var ManageLogStorage module_manage.IManageLogStorage
 
 var ManageLoginService module_manage.IManageLoginService
 

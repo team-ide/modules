@@ -1,0 +1,43 @@
+package "module_manage";
+
+model ManageLogPageRequest extends ManageLog{
+    // 页码
+    pageNo int64
+    // 每页数量
+    pageSize int64
+}
+
+model ManageLogPageResponse{
+    // 总数
+    total int64
+    list []*ManageLog
+}
+
+model ManageLogDeleteRequest{
+    logIds []int64
+}
+
+
+@Impl("ManageLogService", package="module_manage/manage_service")
+@Factory("ManageLogService", package="module_manage/manage_factory")
+
+@WebApi(module="manage", package="module_manage/manage_api")
+@WebMapping("/manage/log/")
+
+interface IManageLogService {
+
+    @NotWebApi
+    @DefaultValue(logId = ManageId.GenLogId)
+    @Call(IManageLogStorage.insert)
+    add(in *ManageLog)(err error){
+    }
+
+    @Call(IManageLogStorage.page, assign="res.list")
+    @Call(IManageLogStorage.count, assign="res.total")
+    page(in *ManageLogPageRequest)(res *ManageLogPageResponse,err error){
+    }
+
+    @Call(IManageLogStorage.deleteByIds)
+    delete(in *ManageLogDeleteRequest)(err error){
+    }
+}

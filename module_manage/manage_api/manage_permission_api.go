@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 10:50] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 17:28] 生成
 
 package manage_api
 
@@ -8,10 +8,15 @@ import (
 	"github.com/team-ide/modules/module_manage/manage_factory"
 )
 
+func NewWebApiManagePermissionService() *WebApiManagePermissionService {
+	res := &WebApiManagePermissionService{}
+	return res
+}
+
 type WebApiManagePermissionService struct {
 }
 
-func (this_ *WebApiManagePermissionService) GetWebApi(webApi *web.WebApi) {
+func (this_ *WebApiManagePermissionService) GetWebApi() (webApi *web.WebApi) {
 	webApi = web.NewWebApi("/manage/permission/")
 	webApi.Add("add", this_.Add)
 	webApi.Add("query", this_.Query)

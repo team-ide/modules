@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-03-18 10:47] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 16:15] 生成
 
 package manage_install
 
@@ -32,14 +32,14 @@ func TableManageLoginCreate(dbService db.IService) (err error) {
 			{Name: "use_at", DataType: "bigint", Length: 20, Comment: "使用 时间"},
 		},
 		IndexList: []*db.Index{
-			{Name: "", ColumnNames: []string{"user_id"}},
-			{Name: "", ColumnNames: []string{"user_account"}},
-			{Name: "", ColumnNames: []string{"user_name"}},
-			{Name: "", ColumnNames: []string{"source_type"}},
-			{Name: "", ColumnNames: []string{"token"}},
-			{Name: "", ColumnNames: []string{"create_at"}},
-			{Name: "", ColumnNames: []string{"logout_at"}},
-			{Name: "", ColumnNames: []string{"use_at"}},
+			{Name: "", ColumnNames: []string{"manage_login_user_id"}},
+			{Name: "", ColumnNames: []string{"manage_login_user_account"}},
+			{Name: "", ColumnNames: []string{"manage_login_user_name"}},
+			{Name: "", ColumnNames: []string{"manage_login_source_type"}},
+			{Name: "", ColumnNames: []string{"manage_login_token"}},
+			{Name: "", ColumnNames: []string{"manage_login_create_at"}},
+			{Name: "", ColumnNames: []string{"manage_login_logout_at"}},
+			{Name: "", ColumnNames: []string{"manage_login_use_at"}},
 		},
 	}
 	err = db.TableCreate(dbService, moduleName, version, tableName, table)

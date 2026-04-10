@@ -89,7 +89,9 @@ interface IManageService {
     // 获取登录用户信息
     @WebParam(token, place="header")
     @Call(loadLogin(token), assign="res")
-    @Call(ILoginCache.add(res.LoginInfo))
+    @if(res != nil)
+        @Call(ILoginCache.add(res.LoginInfo))
+    @end
     session(token string) (res *LoginResponse, err error)
 
     // 登出

@@ -50,6 +50,8 @@ func InitTestData() (err error) {
 		return
 	}
 	fmt.Println("login:" + util.GetStringValue(login))
+	loginInfo := manage_factory.LoginCache.Get(login.Token)
+	fmt.Println("loginInfo:" + util.GetStringValue(loginInfo))
 
 	return
 }

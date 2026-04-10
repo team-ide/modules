@@ -4,6 +4,8 @@ import (
 	"example/common"
 	"example/component/web_service"
 	"example/config"
+	"github.com/team-ide/framework/web"
+	"github.com/team-ide/modules/module_manage/manage_api"
 
 	"github.com/team-ide/framework/web/web_fasthttp"
 	"github.com/team-ide/framework/web/web_gin"
@@ -34,7 +36,12 @@ func startWebServerManage() (err error) {
 
 	var webServiceOpt = web_gin.BindWebService
 
-	if err = web_service.InitWebApi("web_manage", cfg.WebManage, webServiceOpt); err != nil {
+	var webHandler = func(s *web.WebServer) {
+		s.AddWebFilters(manage_api.NewLogFilter())
+		s.AddWebFilters(manage_api.NewLoginFilter())
+		s.AddWebApis(manage_api.NewWebApiManageService().GetWebApi())
+	}
+	if err = web_service.InitWebManage("web_manage", cfg.WebManage, webServiceOpt, webHandler); err != nil {
 		return
 	}
 

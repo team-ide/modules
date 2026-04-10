@@ -20,14 +20,14 @@ create table `manage_login`
 	`delete_at` bigint(20) comment '删除 时间',
 	`use_at` bigint(20) comment '使用 时间',
 	primary key (login_id),
-	index (`user_id`),
-    index (`user_account`),
-    index (`user_name`),
-    index (`source_type`),
-    index (`token`),
-    index (`create_at`),
-    index (`logout_at`),
-    index (`use_at`),
+	index (`manage_login_user_id`),
+    index (`manage_login_user_account`),
+    index (`manage_login_user_name`),
+    index (`manage_login_source_type`),
+    index (`manage_login_token`),
+    index (`manage_login_create_at`),
+    index (`manage_login_logout_at`),
+    index (`manage_login_use_at`),
 ) comment '管理后台 用户 登录记录';
 
 

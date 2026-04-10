@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 14:11] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 17:25] 生成
 
 package manage_service
 
@@ -89,7 +89,9 @@ func (this_ *ManageService) Session(token string) (res *module_manage.LoginRespo
 		framework.Error("call this func LoadLogin error:" + err.Error())
 		return
 	}
-	manage_factory.LoginCache.Add(res.LoginInfo)
+	if res != nil {
+		manage_factory.LoginCache.Add(res.LoginInfo)
+	}
 	return
 }
 
