@@ -1,6 +1,8 @@
 package manage_api
 
 import (
+	"fmt"
+	"github.com/team-ide/framework/util"
 	"time"
 
 	"github.com/team-ide/framework/web"
@@ -63,8 +65,9 @@ func (this_ *LogFilter) DoFilter(req *web.WebRequest, chain web.WebFilterChain) 
 			log.Error = err.Error()
 		}
 		// 获取GET请求的所有查询参数
-		log.Param = req.RawQuery()
+		log.Param = req.GetPathParam()
 		log.Data = string(req.GetData())
+		fmt.Println(util.GetStringValue(log))
 		_ = manage_factory.ManageLogService.Add(log)
 	}
 	return

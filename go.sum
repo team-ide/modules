@@ -35,8 +35,8 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
-github.com/team-ide/framework v1.0.1 h1:IoZWk5dw7X4bt/gnEkjaXXaY7bGCmmz0sGgkeyTRlpI=
-github.com/team-ide/framework v1.0.1/go.mod h1:8WbtQZLaGFc2Cwtm9J1UOV8kRT005jrrwsP5S5hSC0A=
+github.com/team-ide/framework v1.0.3 h1:IEiDnn+IPEIXMvhZuwJ0O7dkvMgelUNbrKyL52uz65s=
+github.com/team-ide/framework v1.0.3/go.mod h1:8WbtQZLaGFc2Cwtm9J1UOV8kRT005jrrwsP5S5hSC0A=
 go.uber.org/goleak v1.3.0 h1:2K3zAYmnTNqV73imy9J1T3WC+gmCePx2hEGkimedGto=
 go.uber.org/goleak v1.3.0/go.mod h1:CoHD4mav9JJNrW/WLlf7HGZPjdw8EucARQHekz1X6bE=
 go.uber.org/multierr v1.10.0 h1:S0h4aNzvfcFsC3dRF1jLoaov7oRaKqRGC/pUEJ2yvPQ=

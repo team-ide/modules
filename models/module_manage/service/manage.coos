@@ -66,6 +66,14 @@ interface IManageService {
     }
     // 登录
     @NotLogin
+    @NotLog
+    @WebApiStart
+    @Var(userAgent , place = UserAgent)
+    @Var(clientIp , place = ClientIp)
+    @Value(sourceType , value = LoginSourceTypeManage)
+    @Value(sourceInfo , jsonString , userAgent = userAgent)
+    @Value(loginIp , value = clientIp)
+    @WebApiEnd
     @Verify(account, required, message="登录账号不能为空")
     @Verify(password, required, message="登录密码不能为空")
     @Call(IManageUserStorage.queryByAccount(in.Account), assign="findUsers")

@@ -2,7 +2,9 @@ module github.com/team-ide/modules
 
 go 1.22.0
 
-require github.com/team-ide/framework v1.0.1
+//replace github.com/team-ide/framework => ../framework
+
+require github.com/team-ide/framework v1.0.3
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect

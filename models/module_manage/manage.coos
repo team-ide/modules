@@ -6,3 +6,9 @@ var	ERROR_LOGIN_EXPIRE         = NewError("10002", "登录凭证已过期");
 var	ERROR_ACCOUNT_OR_PASSWORD  = NewError("10005", "登录账号或密码错误");
 var	ERROR_MANAGE_USER_INVALID  = NewError("10004", "管理员账号已失效");
 var	ERROR_OLD_PASSWORD         = NewError("10006", "旧密码错误");
+
+// 管理页面 登录 的 源类型
+var LoginSourceTypeManage = 1
+
+// api 登录 的 源类型
+var LoginSourceTypeApi = 2
