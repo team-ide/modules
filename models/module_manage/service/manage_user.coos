@@ -31,7 +31,15 @@ interface IManageUserService {
 
     }
 
-    delete(in *ManageUserDeleteRequest)(err error){
+    @WebParam(type = "*ManageUserDeleteRequest")
+    @Call(deleteByIds(userIds))
+    delete(userIds []int64)(err error){
+
+    }
+
+    @WebParam(type = "*ManageUserDeleteRequest")
+    @Call(removeByIds(userIds))
+    remove(userIds []int64)(err error){
 
     }
 
