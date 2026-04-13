@@ -12,6 +12,7 @@ model LoginRequest{
 
     sourceType int
     sourceInfo string
+    loginIp string
 }
 
 model LoginInfo{
@@ -68,11 +69,7 @@ interface IManageService {
     @NotLogin
     @NotLog
     @WebApiStart
-    @Var(userAgent , place = UserAgent)
-    @Var(clientIp , place = ClientIp)
-    @Value(sourceType , value = LoginSourceTypeManage)
-    @Value(sourceInfo , jsonString , userAgent = userAgent)
-    @Value(loginIp , value = clientIp)
+        @Value(in.loginIp = _ClientIP)
     @WebApiEnd
     @Verify(account, required, message="登录账号不能为空")
     @Verify(password, required, message="登录密码不能为空")
@@ -85,7 +82,7 @@ interface IManageService {
     @Var(login, type = "*ManageLogin",new)
     @Value(login.UserId = findUser.UserId, login.UserAccount = findUser.Account, login.UserName = findUser.Name)
     @Value(login.CreateAt = _nowTime, login.LoginAt = _nowTime, login.UseAt = _nowTime)
-    @Value(login.SourceType = in.SourceType, login.SourceInfo = in.SourceInfo)
+    @Value(login.SourceType = in.SourceType, login.SourceInfo = in.SourceInfo, login.loginIp = in.loginIp)
     @Value(login.LoginId = IManageId.genLoginId())
     @Value(login.Token = uuid())
     @Call(IManageLoginStorage.insert(login))
@@ -97,9 +94,14 @@ interface IManageService {
     // 获取登录用户信息
     @WebParam(token, place="header")
     @Call(loadLogin(token), assign="res")
-    @if(res != nil)
-        @Call(ILoginCache.add(res.LoginInfo))
+    @if(res == nil)
+        @return
     @end
+    @Value(err = res.Valid())
+    @if(err != nil)
+        @return
+    @end
+    @Call(ILoginCache.add(res.LoginInfo))
     session(token string) (res *LoginResponse, err error)
 
     // 登出

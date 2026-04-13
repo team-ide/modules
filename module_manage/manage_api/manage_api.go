@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 17:29] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-13 16:37] 生成
 
 package manage_api
 
@@ -19,7 +19,7 @@ type WebApiManageService struct {
 func (this_ *WebApiManageService) GetWebApi() (webApi *web.WebApi) {
 	webApi = web.NewWebApi("/")
 	webApi.Add("getSecurityCode", this_.GetSecurityCode).SetNotLogin().SetNotLog().SetComment("获取图形验证码")
-	webApi.Add("login", this_.Login).SetNotLogin().SetComment("登录")
+	webApi.Add("login", this_.Login).SetNotLogin().SetNotLog().SetComment("登录")
 	webApi.Add("session", this_.Session).SetComment("获取登录用户信息")
 	webApi.Add("logout", this_.Logout).SetNotLogin().SetComment("登出")
 	webApi.Add("load/login", this_.LoadLogin).SetNotLogin().SetComment("加载登录信息")
@@ -41,6 +41,7 @@ func (this_ *WebApiManageService) Login(request *web.WebRequest) (res any, err e
 	if err = request.RequestJSON(in); err != nil {
 		return
 	}
+	in.LoginIp = request.ClientIP()
 
 	res, err = manage_factory.ManageService.Login(in)
 	return
