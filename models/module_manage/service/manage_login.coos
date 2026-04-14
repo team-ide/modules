@@ -19,27 +19,25 @@ model ManageLoginDeleteRequest{
 
 
 @Impl("ManageLoginService", package="module_manage/manage_service")
-@ServiceField(manageLoginStorage=IManageLoginStorage)
 @Factory("ManageLoginService", package="module_manage/manage_factory")
 
-@WebApi(module="manage", package="module_manage/manage_api")
+@WebApi(module="manage", package="module_manage/manage_api",doc="module_manage/web_api")
 @WebMapping("/manage/login/")
 
-@Object(IManageLoginStorage)
 interface IManageLoginService {
 
     @NotWebApi
     @DefaultValue(loginId = ManageId.GenLoginId)
-    @Call(insert)
+    @Call(IManageLoginStorage.insert)
     add(in *ManageLogin)(err error){
     }
 
-    @Call(page, assign="res.list")
-    @Call(count, assign="res.total")
+    @Call(IManageLoginStorage.page, assign="res.list")
+    @Call(IManageLoginStorage.count, assign="res.total")
     page(in *ManageLoginPageRequest)(res *ManageLoginPageResponse,err error){
     }
 
-    @Call(deleteByIds)
+    @Call(IManageLoginStorage.deleteByIds)
     delete(in *ManageLoginDeleteRequest)(err error){
     }
 }

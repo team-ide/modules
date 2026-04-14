@@ -50,11 +50,11 @@ model GetSecurityCodeResponse {
 @Impl("ManageService", package="module_manage/manage_service")
 @Factory("ManageService", package="module_manage/manage_factory")
 
-@WebApi(module="manage", package="module_manage/manage_api")
+@WebApi(module="manage", package="module_manage/manage_api", doc="module_manage/web_api")
 @WebMapping("/")
 interface IManageService {
     // 获取图形验证码
-    @NotLogin
+    @NotAuth
     @NotLog
     @WebMapping("getSecurityCode")
     getSecurityCode(in *GetSecurityCodeRequest) (out *GetSecurityCodeResponse, err error)
@@ -66,7 +66,8 @@ interface IManageService {
 
     }
     // 登录
-    @NotLogin
+    @IsAuth(place=header, name=token, value=token)
+    @NotAuth
     @NotLog
     @WebApiStart
         @Value(in.loginIp = _ClientIP)
@@ -105,13 +106,13 @@ interface IManageService {
     session(token string) (res *LoginResponse, err error)
 
     // 登出
-    @NotLogin
+    @NotAuth
     @WebParam(token, place="header")
     logout(token string)(err error){
 
     }
     // 加载登录信息
-    @NotLogin
+    @NotAuth
     @Call(IManageLoginStorage.GetByToken(token), assign="login")
     @if(login == nil)
         @return

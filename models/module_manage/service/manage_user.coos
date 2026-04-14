@@ -13,32 +13,30 @@ model ManageUserDeleteRequest{
 }
 
 @Impl("ManageUserService", package="module_manage/manage_service")
-@ServiceField(manageUserStorage=IManageUserStorage)
 @Factory("ManageUserService", package="module_manage/manage_factory")
 
-@WebApi(module="manage", package="module_manage/manage_api")
+@WebApi(module="manage", package="module_manage/manage_api",doc="module_manage/web_api")
 @WebMapping("/manage/user/")
 
-@Object(IManageUserStorage)
 interface IManageUserService {
 
     @Verify("name", required)
     @Verify("password", required)
     @Verify("account", unique, call = countByAccount)
     @DefaultValue(userId = ManageId.GenUserId)
-    @Call(insert)
+    @Call(IManageUserStorage.insert)
     add(in *ManageUserAddRequest)(res *ManageUserAddResponse, err error){
 
     }
 
     @WebParam(type = "*ManageUserDeleteRequest")
-    @Call(deleteByIds(userIds))
+    @Call(IManageUserStorage.deleteByIds(userIds))
     delete(userIds []int64)(err error){
 
     }
 
     @WebParam(type = "*ManageUserDeleteRequest")
-    @Call(removeByIds(userIds))
+    @Call(IManageUserStorage.removeByIds(userIds))
     remove(userIds []int64)(err error){
 
     }

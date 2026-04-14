@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-13 16:05] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-14 14:18] 生成
 
 package manage_api
 
@@ -19,6 +19,7 @@ type WebApiManageRoleService struct {
 func (this_ *WebApiManageRoleService) GetWebApi() (webApi *web.WebApi) {
 	webApi = web.NewWebApi("/manage/role/")
 	webApi.Add("add", this_.Add)
+	webApi.Add("list", this_.List)
 	webApi.Add("delete", this_.Delete)
 	webApi.Add("get/user/roles", this_.GetUserRoles)
 	webApi.Add("add/role/users", this_.AddRoleUsers)
@@ -33,6 +34,16 @@ func (this_ *WebApiManageRoleService) Add(request *web.WebRequest) (res any, err
 	}
 
 	res, err = manage_factory.ManageRoleService.Add(in)
+	return
+}
+
+func (this_ *WebApiManageRoleService) List(request *web.WebRequest) (res any, err error) {
+	in := &module_manage.ManageRoleListRequest{}
+	if err = request.RequestJSON(in); err != nil {
+		return
+	}
+
+	res, err = manage_factory.ManageRoleService.List(in)
 	return
 }
 

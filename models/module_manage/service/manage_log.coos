@@ -21,7 +21,7 @@ model ManageLogDeleteRequest{
 @Impl("ManageLogService", package="module_manage/manage_service")
 @Factory("ManageLogService", package="module_manage/manage_factory")
 
-@WebApi(module="manage", package="module_manage/manage_api")
+@WebApi(module="manage", package="module_manage/manage_api",doc="module_manage/web_api")
 @WebMapping("/manage/log/")
 
 interface IManageLogService {

@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-09 11:11] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-14 14:18] 生成
 
 package manage_service
 
@@ -10,14 +10,12 @@ import (
 	"github.com/team-ide/modules/module_manage/manage_factory"
 )
 
-func NewManageUserService(manageUserStorage module_manage.IManageUserStorage) *ManageUserService {
+func NewManageUserService() *ManageUserService {
 	res := &ManageUserService{}
-	res.manageUserStorage = manageUserStorage
 	return res
 }
 
 type ManageUserService struct {
-	manageUserStorage module_manage.IManageUserStorage
 }
 
 func (this_ *ManageUserService) Add(in *module_manage.ManageUserAddRequest) (res *module_manage.ManageUserAddResponse, err error) {
@@ -40,7 +38,21 @@ func (this_ *ManageUserService) Add(in *module_manage.ManageUserAddRequest) (res
 	return
 }
 
-func (this_ *ManageUserService) Delete(in *module_manage.ManageUserDeleteRequest) (err error) {
+func (this_ *ManageUserService) Delete(userIds []int64) (err error) {
+	_, err = manage_factory.ManageUserStorage.DeleteByIds(userIds)
+	if err != nil {
+		framework.Error("call ManageUserStorage func DeleteByIds error:" + err.Error())
+		return
+	}
+	return
+}
+
+func (this_ *ManageUserService) Remove(userIds []int64) (err error) {
+	_, err = manage_factory.ManageUserStorage.RemoveByIds(userIds)
+	if err != nil {
+		framework.Error("call ManageUserStorage func RemoveByIds error:" + err.Error())
+		return
+	}
 	return
 }
 

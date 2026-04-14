@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_role.coos] 在 [2026-04-10 10:27] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_role.coos] 在 [2026-04-14 14:18] 生成
 
 package module_manage
 
@@ -7,6 +7,14 @@ type ManageRoleAddRequest struct {
 }
 
 type ManageRoleAddResponse struct {
+}
+
+type ManageRoleListRequest struct {
+	*ManageRole
+}
+
+type ManageRoleListResponse struct {
+	List []*ManageRole `json:"list"`
 }
 
 type ManageRoleDeleteRequest struct {
@@ -29,6 +37,7 @@ type ManageAddRoleUserResponse struct {
 
 type IManageRoleService interface {
 	Add(in *ManageRoleAddRequest) (res *ManageRoleAddResponse, err error)
+	List(in *ManageRoleListRequest) (res *ManageRoleListResponse, err error)
 	Delete(roleIds []int64) (err error)
 	GetUserRoles(userId int64) (res []*ManageRole, err error)
 	AddRoleUsers(roleId int64, userIds []int64) (err error)

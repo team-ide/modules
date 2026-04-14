@@ -8,6 +8,13 @@ model ManageRoleAddResponse{
 
 }
 
+model ManageRoleListRequest extends ManageRole{
+}
+
+model ManageRoleListResponse{
+    list []*ManageRole
+}
+
 model ManageRoleDeleteRequest{
     roleIds []int64
 }
@@ -29,20 +36,23 @@ model ManageAddRoleUserResponse{
 @Impl("ManageRoleService", package="module_manage/manage_service")
 @Factory("ManageRoleService", package="module_manage/manage_factory")
 
-@WebApi(module="manage", package="module_manage/manage_api")
+@WebApi(module="manage", package="module_manage/manage_api",doc="module_manage/web_api")
 @WebMapping("/manage/role/")
 
-@Object(IManageRoleStorage)
 interface IManageRoleService {
 
     @DefaultValue(roleId = ManageId.GenRoleId)
-    @Call(insert)
+    @Call(IManageRoleStorage.insert)
     add(in *ManageRoleAddRequest)(res *ManageRoleAddResponse, err error){
 
     }
 
+    @Call(IManageRoleStorage.query, assign="res.list")
+    list(in *ManageRoleListRequest)(res *ManageRoleListResponse,err error){
+    }
+
     @WebParam(type = "*ManageRoleDeleteRequest")
-    @Call(deleteByIds(roleIds))
+    @Call(IManageRoleStorage.deleteByIds(roleIds))
     delete(roleIds []int64)(err error){
 
     }

@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 14:03] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-14 14:18] 生成
 
 package manage_service
 
@@ -8,14 +8,12 @@ import (
 	"github.com/team-ide/modules/module_manage/manage_factory"
 )
 
-func NewManageLoginService(manageLoginStorage module_manage.IManageLoginStorage) *ManageLoginService {
+func NewManageLoginService() *ManageLoginService {
 	res := &ManageLoginService{}
-	res.manageLoginStorage = manageLoginStorage
 	return res
 }
 
 type ManageLoginService struct {
-	manageLoginStorage module_manage.IManageLoginStorage
 }
 
 func (this_ *ManageLoginService) Add(in *module_manage.ManageLogin) (err error) {

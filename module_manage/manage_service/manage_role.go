@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 14:03] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-14 14:18] 生成
 
 package manage_service
 
@@ -23,6 +23,16 @@ func (this_ *ManageRoleService) Add(in *module_manage.ManageRoleAddRequest) (res
 	_, err = manage_factory.ManageRoleStorage.Insert(in.ManageRole)
 	if err != nil {
 		framework.Error("call ManageRoleStorage func Insert error:" + err.Error())
+		return
+	}
+	return
+}
+
+func (this_ *ManageRoleService) List(in *module_manage.ManageRoleListRequest) (res *module_manage.ManageRoleListResponse, err error) {
+	res = &module_manage.ManageRoleListResponse{}
+	res.List, err = manage_factory.ManageRoleStorage.Query(in.ManageRole)
+	if err != nil {
+		framework.Error("call ManageRoleStorage func Query error:" + err.Error())
 		return
 	}
 	return
