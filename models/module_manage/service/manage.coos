@@ -112,6 +112,7 @@ interface IManageService {
 
     }
     // 加载登录信息
+    @NotWebApi
     @NotAuth
     @Call(IManageLoginStorage.GetByToken(token), assign="login")
     @if(login == nil)

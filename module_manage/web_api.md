@@ -71,16 +71,6 @@
   - **说明**: 登出
 
 
-### 加载登录信息 
-
-* 基本信息 
-  - **请求URL**: `/load/login`
-  - **请求方式**: `POST`
-  - **Content-Type**: `application/json`
-  - **需要auth**: `否`
-  - **说明**: 加载登录信息
-
-
 ## /manage/log/ 
 
 ### /manage/log/manage/log/page 

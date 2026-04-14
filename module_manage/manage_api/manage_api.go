@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-13 16:37] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-14 18:04] 生成
 
 package manage_api
 
@@ -22,7 +22,6 @@ func (this_ *WebApiManageService) GetWebApi() (webApi *web.WebApi) {
 	webApi.Add("login", this_.Login).SetNotLogin().SetNotLog().SetComment("登录")
 	webApi.Add("session", this_.Session).SetComment("获取登录用户信息")
 	webApi.Add("logout", this_.Logout).SetNotLogin().SetComment("登出")
-	webApi.Add("load/login", this_.LoadLogin).SetNotLogin().SetComment("加载登录信息")
 	return
 }
 
@@ -60,12 +59,5 @@ func (this_ *WebApiManageService) Logout(request *web.WebRequest) (res any, err 
 	token = request.GetHeader("token")
 
 	err = manage_factory.ManageService.Logout(token)
-	return
-}
-
-func (this_ *WebApiManageService) LoadLogin(request *web.WebRequest) (res any, err error) {
-	var token string
-
-	res, err = manage_factory.ManageService.LoadLogin(token)
 	return
 }
