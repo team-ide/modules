@@ -252,7 +252,6 @@
 | startAt | int64 |  | 权限开始 时间戳 毫秒 |
 | expiredAt | int64 |  | 过期 时间戳 毫秒 |
 | expiredDuration | int64 |  | 过期时间 分钟 |
-| createAt | int64 |  | 创建 时间戳 毫秒 |
 | updateAt | int64 |  | 修改 时间戳 毫秒 |
 
 
@@ -393,7 +392,6 @@
 | - | - | - | - |
 | name | string |  | 名称 |
 | isSuper | int8 |  | 角色 是否 是超管 如果是 则拥有所有权限 1是 2否 |
-| createAt | int64 |  | 创建 时间戳 毫秒 |
 | updateAt | int64 |  | 修改 时间戳 毫秒 |
 
 
@@ -536,8 +534,6 @@
 | - | - | - | - |
 | name | string |  | 名称 |
 | account | string |  | 登录账号 |
-| status | int |  | 状态 1：正常 2：禁用 9：删除 |
-| createAt | int64 |  | 创建 时间戳 毫秒 |
 | updateAt | int64 |  | 修改 时间戳 毫秒 |
 | deleteAt | int64 |  | 删除 时间戳 毫秒 |
 | disableAt | int64 |  | 禁用 时间戳 毫秒 |
