@@ -63,7 +63,6 @@
 | securityCode | string |  | 验证码 |
 | sourceType | int |  | 登录 来源 1 为 管理页面 |
 | sourceInfo | string |  | 登录 来源 信息 如 浏览器信息、客户端ip等 使用 json 格式 |
-| loginIp | string |  | 登录 ip 次 ip 服务端获取 |
 
 
 ### 获取登录用户信息 
@@ -245,7 +244,6 @@
 
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
-| permissionId | int64 |  | 角色 权限 ID |
 | roleId | int64 |  | 角色 ID 给角色授权 |
 | userId | int64 |  | 用户 ID 给用户授权 |
 | permissionType | string |  | 权限类型 path: 路径 button: 按钮 tag: 标签 page: 页面 |
@@ -393,7 +391,6 @@
 
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
-| roleId | int64 |  | 角色 ID |
 | name | string |  | 名称 |
 | isSuper | int8 |  | 角色 是否 是超管 如果是 则拥有所有权限 1是 2否 |
 | createAt | int64 |  | 创建 时间戳 毫秒 |
@@ -537,11 +534,8 @@
 
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
-| userId | int64 |  | 用户 ID |
 | name | string |  | 名称 |
 | account | string |  | 登录账号 |
-| - | string |  | 密码 盐 设置密码时候 自动生成 |
-| - | string |  | 密码  md5(salt + md5(password)) |
 | status | int |  | 状态 1：正常 2：禁用 9：删除 |
 | createAt | int64 |  | 创建 时间戳 毫秒 |
 | updateAt | int64 |  | 修改 时间戳 毫秒 |
