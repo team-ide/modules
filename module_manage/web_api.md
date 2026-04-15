@@ -34,6 +34,14 @@
   - **需要auth**: `否`
   - **说明**: 获取图形验证码
 
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| deviceId | string |  | 浏览器 初始化一个 设备ID 可以是 UUID 等，生成同一个 |
+| width | int |  | 验证码 宽度 |
+| height | int |  | 验证码 高度 |
+
 
 ### 登录 
 
@@ -43,6 +51,19 @@
   - **Content-Type**: `application/json`
   - **需要auth**: `否`
   - **说明**: 登录
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| account | string |  | 登录账号 |
+| password | string |  | 登录密码 需要对密码 MD5 传入接口，输入的密码为 MD5(password) |
+| deviceId | string |  | 浏览器 初始化一个 设备ID 可以是 UUID 等，生成同一个 |
+| securityCodeKey | string |  | 验证码的 临时 key 验证的时候需要传入 |
+| securityCode | string |  | 验证码 |
+| sourceType | int |  | 登录 来源 1 为 管理页面 |
+| sourceInfo | string |  | 登录 来源 信息 如 浏览器信息、客户端ip等 使用 json 格式 |
+| loginIp | string |  | 登录 ip 次 ip 服务端获取 |
 
 
 ### 获取登录用户信息 
@@ -70,6 +91,12 @@
   - **需要auth**: `否`
   - **说明**: 登出
 
+* Headers 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| token | string |  |  |
+
 
 ## /manage/log/ 
 
@@ -88,6 +115,30 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| logId | int64 |  | 日志id |
+| loginId | int64 |  | 登录id |
+| userId | int64 |  | 用户id |
+| userName | string |  | 用户名称 |
+| userAccount | string |  | 用户账号 |
+| ip | string |  | ip |
+| path | string |  | 请求 |
+| comment | string |  | 备注 |
+| method | string |  | 方法 |
+| param | string |  | 参数 |
+| data | string |  | 数据 |
+| userAgent | string |  | user-agent |
+| error | string |  | 异常 |
+| useTime | int |  | 使用时长 |
+| startAt | int64 |  | 开始时间 |
+| endAt | int64 |  | 结束时间 |
+| createAt | int64 |  | 创建时间 |
+| pageNo | int64 |  | 页码 |
+| pageSize | int64 |  | 每页数量 |
+
 
 ### /manage/log/manage/log/delete 
 
@@ -103,6 +154,12 @@
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| logIds | []int64 |  |  |
 
 
 ## /manage/login/ 
@@ -122,6 +179,28 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| loginId | int64 |  | 登录id |
+| userId | int64 |  | 用户ID |
+| userAccount | string |  | 用户 账号 |
+| userName | string |  | 用户 名称 |
+| loginIp | string |  | 登录 ip |
+| sourceType | int |  | 来源 类型 |
+| sourceInfo | string |  | 来源 信息 |
+| token | string |  | 验证票据 |
+| status | int |  | 状态 1：登录 2：登出 9：删除 |
+| loginAt | int64 |  | 登录 时间 |
+| logoutAt | int64 |  | 登出 时间 |
+| createAt | int64 |  | 创建 时间 |
+| updateAt | int64 |  | 修改 时间 |
+| deleteAt | int64 |  | 删除 时间 |
+| useAt | int64 |  | 使用 时间 |
+| pageNo | int64 |  | 页码 |
+| pageSize | int64 |  | 每页数量 |
+
 
 ### /manage/login/manage/login/delete 
 
@@ -137,6 +216,12 @@
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| loginIds | []int64 |  |  |
 
 
 ## /manage/permission/ 
@@ -156,6 +241,22 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| permissionId | int64 |  | 角色 权限 ID |
+| roleId | int64 |  | 角色 ID 给角色授权 |
+| userId | int64 |  | 用户 ID 给用户授权 |
+| permissionType | string |  | 权限类型 path: 路径 button: 按钮 tag: 标签 page: 页面 |
+| permission | string |  | 权限 根据类型设置 如：/admin/user/add |
+| authorizable | int |  | 可授权 2:不可授权 1:可以授权 |
+| startAt | int64 |  | 权限开始 时间戳 毫秒 |
+| expiredAt | int64 |  | 过期 时间戳 毫秒 |
+| expiredDuration | int64 |  | 过期时间 分钟 |
+| createAt | int64 |  | 创建 时间戳 毫秒 |
+| updateAt | int64 |  | 修改 时间戳 毫秒 |
+
 
 ### /manage/permission/manage/permission/query 
 
@@ -172,11 +273,19 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
 
-### /manage/permission/manage/permission/query/by/ids 
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| permissionIds | []int64 |  |  |
+| roleIds | []int64 |  |  |
+| userIds | []int64 |  |  |
+
+
+### /manage/permission/manage/permission/queryByIds 
 
 * 基本信息 
-  - **请求URL**: `/manage/permission/query/by/ids`
+  - **请求URL**: `/manage/permission/queryByIds`
   - **请求方式**: `POST`
   - **Content-Type**: `application/json`
   - **需要auth**: `是`
@@ -188,11 +297,17 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
 
-### /manage/permission/manage/permission/query/by/role/ids 
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| ids | []int64 |  |  |
+
+
+### /manage/permission/manage/permission/queryByRoleIds 
 
 * 基本信息 
-  - **请求URL**: `/manage/permission/query/by/role/ids`
+  - **请求URL**: `/manage/permission/queryByRoleIds`
   - **请求方式**: `POST`
   - **Content-Type**: `application/json`
   - **需要auth**: `是`
@@ -204,11 +319,17 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
 
-### /manage/permission/manage/permission/query/by/user/ids 
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| roleIds | []int64 |  |  |
+
+
+### /manage/permission/manage/permission/queryByUserIds 
 
 * 基本信息 
-  - **请求URL**: `/manage/permission/query/by/user/ids`
+  - **请求URL**: `/manage/permission/queryByUserIds`
   - **请求方式**: `POST`
   - **Content-Type**: `application/json`
   - **需要auth**: `是`
@@ -219,6 +340,12 @@
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| userIds | []int64 |  |  |
 
 
 ### /manage/permission/manage/permission/delete 
@@ -235,6 +362,14 @@
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| permissionIds | []int64 |  |  |
+| roleIds | []int64 |  |  |
+| userIds | []int64 |  |  |
 
 
 ## /manage/role/ 
@@ -254,6 +389,16 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| roleId | int64 |  | 角色 ID |
+| name | string |  | 名称 |
+| isSuper | int8 |  | 角色 是否 是超管 如果是 则拥有所有权限 1是 2否 |
+| createAt | int64 |  | 创建 时间戳 毫秒 |
+| updateAt | int64 |  | 修改 时间戳 毫秒 |
+
 
 ### /manage/role/manage/role/list 
 
@@ -269,6 +414,16 @@
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| roleId | int64 |  | 角色 ID |
+| name | string |  | 名称 |
+| isSuper | int8 |  | 角色 是否 是超管 如果是 则拥有所有权限 1是 2否 |
+| createAt | int64 |  | 创建 时间戳 毫秒 |
+| updateAt | int64 |  | 修改 时间戳 毫秒 |
 
 
 ### /manage/role/manage/role/delete 
@@ -286,11 +441,17 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
 
-### /manage/role/manage/role/get/user/roles 
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| roleIds | []int64 |  |  |
+
+
+### /manage/role/manage/role/getUserRoles 
 
 * 基本信息 
-  - **请求URL**: `/manage/role/get/user/roles`
+  - **请求URL**: `/manage/role/getUserRoles`
   - **请求方式**: `POST`
   - **Content-Type**: `application/json`
   - **需要auth**: `是`
@@ -302,11 +463,17 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
 
-### /manage/role/manage/role/add/role/users 
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| userId | int64 |  |  |
+
+
+### /manage/role/manage/role/addRoleUsers 
 
 * 基本信息 
-  - **请求URL**: `/manage/role/add/role/users`
+  - **请求URL**: `/manage/role/addRoleUsers`
   - **请求方式**: `POST`
   - **Content-Type**: `application/json`
   - **需要auth**: `是`
@@ -318,11 +485,18 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
 
-### /manage/role/manage/role/add/role/user 
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| roleId | int64 |  |  |
+| userIds | []int64 |  |  |
+
+
+### /manage/role/manage/role/addRoleUser 
 
 * 基本信息 
-  - **请求URL**: `/manage/role/add/role/user`
+  - **请求URL**: `/manage/role/addRoleUser`
   - **请求方式**: `POST`
   - **Content-Type**: `application/json`
   - **需要auth**: `是`
@@ -333,6 +507,13 @@
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| roleId | int64 |  |  |
+| userId | int64 |  |  |
 
 
 ## /manage/user/ 
@@ -352,6 +533,22 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| userId | int64 |  | 用户 ID |
+| name | string |  | 名称 |
+| account | string |  | 登录账号 |
+| - | string |  | 密码 盐 设置密码时候 自动生成 |
+| - | string |  | 密码  md5(salt + md5(password)) |
+| status | int |  | 状态 1：正常 2：禁用 9：删除 |
+| createAt | int64 |  | 创建 时间戳 毫秒 |
+| updateAt | int64 |  | 修改 时间戳 毫秒 |
+| deleteAt | int64 |  | 删除 时间戳 毫秒 |
+| disableAt | int64 |  | 禁用 时间戳 毫秒 |
+| password | string |  |  |
+
 
 ### /manage/user/manage/user/delete 
 
@@ -368,6 +565,12 @@
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| userIds | []int64 |  |  |
+
 
 ### /manage/user/manage/user/remove 
 
@@ -383,6 +586,12 @@
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
 | token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| userIds | []int64 |  |  |
 
 
 ### /manage/user/manage/user/a 

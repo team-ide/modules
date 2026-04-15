@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 17:28] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-15 09:40] 生成
 
 package manage_api
 
@@ -20,9 +20,9 @@ func (this_ *WebApiManagePermissionService) GetWebApi() (webApi *web.WebApi) {
 	webApi = web.NewWebApi("/manage/permission/")
 	webApi.Add("add", this_.Add)
 	webApi.Add("query", this_.Query)
-	webApi.Add("query/by/ids", this_.QueryByIds)
-	webApi.Add("query/by/role/ids", this_.QueryByRoleIds)
-	webApi.Add("query/by/user/ids", this_.QueryByUserIds)
+	webApi.Add("queryByIds", this_.QueryByIds)
+	webApi.Add("queryByRoleIds", this_.QueryByRoleIds)
+	webApi.Add("queryByUserIds", this_.QueryByUserIds)
 	webApi.Add("delete", this_.Delete)
 	return
 }

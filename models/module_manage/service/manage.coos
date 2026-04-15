@@ -1,7 +1,9 @@
 package "module_manage";
 
 model LoginRequest{
+    // 登录账号
     account string required
+    // 登录密码 需要对密码 MD5 传入接口，输入的密码为 MD5(password)
     password string required
     // 浏览器 初始化一个 设备ID 可以是 UUID 等，生成同一个
     deviceId string
@@ -10,8 +12,11 @@ model LoginRequest{
     // 验证码
     securityCode string
 
+    // 登录 来源 1 为 管理页面
     sourceType int
+    // 登录 来源 信息 如 浏览器信息、客户端ip等 使用 json 格式
     sourceInfo string
+    // 登录 ip 次 ip 服务端获取
     loginIp string
 }
 

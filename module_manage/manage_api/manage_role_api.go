@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-14 14:18] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-15 09:43] 生成
 
 package manage_api
 
@@ -21,9 +21,9 @@ func (this_ *WebApiManageRoleService) GetWebApi() (webApi *web.WebApi) {
 	webApi.Add("add", this_.Add)
 	webApi.Add("list", this_.List)
 	webApi.Add("delete", this_.Delete)
-	webApi.Add("get/user/roles", this_.GetUserRoles)
-	webApi.Add("add/role/users", this_.AddRoleUsers)
-	webApi.Add("add/role/user", this_.AddRoleUser)
+	webApi.Add("getUserRoles", this_.GetUserRoles)
+	webApi.Add("addRoleUsers", this_.AddRoleUsers)
+	webApi.Add("addRoleUser", this_.AddRoleUser)
 	return
 }
 
