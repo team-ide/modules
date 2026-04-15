@@ -56,7 +56,7 @@ interface IManageUserStorage {
 
     @Value(create_at = _nowTime)
     @DefaultValue(status = 1)
-    @Storage()
+    @Storage(valueExclude="update_at,deleteAt,disable_at")
     func insert(in *ManageUser)(res int64, err error)
 
     @Value(update_at = _nowTime)
