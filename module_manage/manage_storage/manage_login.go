@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-09 11:11] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-16 16:17] 生成
 
 package manage_storage
 
@@ -22,6 +22,7 @@ type ManageLoginStorage struct {
 
 func (this_ *ManageLoginStorage) GetById(id int64) (res *module_manage.ManageLogin, err error) {
 	m := this_.dbService.SqlSelect("manage_login")
+	m.CanSelectAll()
 	m.Where().Eq("login_id", id)
 	res, err = db.DoQueryOneWithModel[*module_manage.ManageLogin](context.Background(), m)
 	return
@@ -29,6 +30,7 @@ func (this_ *ManageLoginStorage) GetById(id int64) (res *module_manage.ManageLog
 
 func (this_ *ManageLoginStorage) GetByToken(token string) (res *module_manage.ManageLogin, err error) {
 	m := this_.dbService.SqlSelect("manage_login")
+	m.CanSelectAll()
 	m.Where().Eq("token", token)
 	res, err = db.DoQueryOneWithModel[*module_manage.ManageLogin](context.Background(), m)
 	return
@@ -39,7 +41,8 @@ func (this_ *ManageLoginStorage) Insert(in *module_manage.ManageLogin) (res int6
 	if in.Status == 0 {
 		in.Status = 1
 	}
-	r, err := this_.dbService.Insert(context.Background(), in)
+	r, err := this_.dbService.Insert(context.Background(), in, func(in *db.ModelInsert) {
+	})
 	if err != nil {
 		return
 	}
@@ -49,7 +52,8 @@ func (this_ *ManageLoginStorage) Insert(in *module_manage.ManageLogin) (res int6
 
 func (this_ *ManageLoginStorage) Update(in *module_manage.ManageLogin) (res int64, err error) {
 	in.UpdateAt = time.Now().UnixMilli()
-	r, err := this_.dbService.Update(context.Background(), in)
+	r, err := this_.dbService.Update(context.Background(), in, func(in *db.ModelUpdate) {
+	})
 	if err != nil {
 		return
 	}
@@ -58,7 +62,8 @@ func (this_ *ManageLoginStorage) Update(in *module_manage.ManageLogin) (res int6
 }
 
 func (this_ *ManageLoginStorage) Logout(id int64) (res int64, err error) {
-	m := this_.dbService.SqlUpdate("manage_login")
+	m := this_.dbService.SqlUpdate("manage_login", func(in *db.SqlUpdate) {
+	})
 	m.Value("update_at", time.Now().UnixMilli())
 	m.Value("status", 2)
 	m.Value("logout_at", time.Now().UnixMilli())
@@ -72,7 +77,8 @@ func (this_ *ManageLoginStorage) Logout(id int64) (res int64, err error) {
 }
 
 func (this_ *ManageLoginStorage) Use(id int64) (res int64, err error) {
-	m := this_.dbService.SqlUpdate("manage_login")
+	m := this_.dbService.SqlUpdate("manage_login", func(in *db.SqlUpdate) {
+	})
 	m.Value("update_at", time.Now().UnixMilli())
 	m.Value("use_at", time.Now().UnixMilli())
 	m.Where().Eq("login_id", id)
@@ -85,7 +91,8 @@ func (this_ *ManageLoginStorage) Use(id int64) (res int64, err error) {
 }
 
 func (this_ *ManageLoginStorage) DeleteByIds(ids []int64) (res int64, err error) {
-	m := this_.dbService.SqlUpdate("manage_login")
+	m := this_.dbService.SqlUpdate("manage_login", func(in *db.SqlUpdate) {
+	})
 	m.Value("delete_at", time.Now().UnixMilli())
 	m.Value("status", 9)
 	m.Where().In("login_id", ids)
@@ -98,28 +105,34 @@ func (this_ *ManageLoginStorage) DeleteByIds(ids []int64) (res int64, err error)
 }
 
 func (this_ *ManageLoginStorage) Query(in *module_manage.ManageLogin) (res []*module_manage.ManageLogin, err error) {
-	m := this_.dbService.ModelSelect(in)
+	m := this_.dbService.ModelSelect(in, func(in *db.ModelSelect) {
+		in.CanSelectAll()
+	})
 	m.Where().AndWhereSql("status != 9")
 	res, err = db.DoQueryListWithModel[*module_manage.ManageLogin](context.Background(), m)
 	return
 }
 
 func (this_ *ManageLoginStorage) Page(in *module_manage.ManageLogin, pageNo int64, pageSize int64) (res []*module_manage.ManageLogin, err error) {
-	m := this_.dbService.ModelSelect(in)
+	m := this_.dbService.ModelSelect(in, func(in *db.ModelSelect) {
+		in.CanSelectAll()
+	})
 	m.Where().AndWhereSql("status != 9")
 	res, err = db.DoQueryPageWithModel[*module_manage.ManageLogin](context.Background(), m, pageNo, pageSize)
 	return
 }
 
 func (this_ *ManageLoginStorage) Count(in *module_manage.ManageLogin) (res int64, err error) {
-	m := this_.dbService.ModelCount(in)
+	m := this_.dbService.ModelCount(in, func(in *db.ModelCount) {
+	})
 	m.Where().AndWhereSql("status != 9")
 	res, err = m.Count(context.Background())
 	return
 }
 
 func (this_ *ManageLoginStorage) RemoveByIds(ids []int64) (res int64, err error) {
-	m := this_.dbService.SqlDelete("manage_login")
+	m := this_.dbService.SqlDelete("manage_login", func(in *db.SqlDelete) {
+	})
 	m.Where().In("login_id", ids)
 	m.Where().AndWhereSql("status = 9")
 	r, err := m.Exec(context.Background())

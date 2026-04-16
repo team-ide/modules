@@ -25,10 +25,10 @@ func InitFactoryService(dbService db.IService) {
 
 	manage_factory.ManageLogStorage = manage_storage.NewManageLogStorage(dbService)
 
-	manage_factory.ManageUserService = manage_service.NewManageUserService(manage_factory.ManageUserStorage)
+	manage_factory.ManageUserService = manage_service.NewManageUserService()
 	manage_factory.ManageRoleService = manage_service.NewManageRoleService()
 	manage_factory.ManagePermissionService = manage_service.NewManagePermissionService()
-	manage_factory.ManageLoginService = manage_service.NewManageLoginService(manage_factory.ManageLoginStorage)
+	manage_factory.ManageLoginService = manage_service.NewManageLoginService()
 	manage_factory.ManageLogService = manage_service.NewManageLogService()
 	return
 }

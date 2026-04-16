@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_log.coos] 在 [2026-04-10 16:15] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_log.coos] 在 [2026-04-16 14:18] 生成
 
 package module_manage
 
@@ -24,23 +24,25 @@ type IManageLogService interface {
 }
 
 type ManageLog struct {
-	LogId       int64  `json:"logId" column:"log_id"`
-	LoginId     int64  `json:"loginId" column:"login_id"`
-	UserId      int64  `json:"userId" column:"user_id"`
-	UserName    string `json:"userName" column:"user_name"`
-	UserAccount string `json:"userAccount" column:"user_account"`
-	Ip          string `json:"ip" column:"ip"`
-	Path        string `json:"path" column:"path"`
-	Comment     string `json:"comment" column:"comment"`
-	Method      string `json:"method" column:"method"`
-	Param       string `json:"param" column:"param"`
-	Data        string `json:"data" column:"data"`
-	UserAgent   string `json:"userAgent" column:"user_agent"`
-	Error       string `json:"error" column:"error"`
-	UseTime     int    `json:"useTime" column:"use_time"`
-	StartAt     int64  `json:"startAt" column:"start_at"`
-	EndAt       int64  `json:"endAt" column:"end_at"`
-	CreateAt    int64  `json:"createAt" column:"create_at"`
+	StartTimeBefore int64  `json:"startTimeBefore"`
+	StartTimeAfter  int64  `json:"startTimeAfter"`
+	LogId           int64  `json:"logId" column:"log_id"`
+	LoginId         int64  `json:"loginId" column:"login_id"`
+	UserId          int64  `json:"userId" column:"user_id"`
+	UserName        string `json:"userName" column:"user_name"`
+	UserAccount     string `json:"userAccount" column:"user_account"`
+	Ip              string `json:"ip" column:"ip"`
+	Path            string `json:"path" column:"path"`
+	Comment         string `json:"comment" column:"comment"`
+	Method          string `json:"method" column:"method"`
+	Param           string `json:"param" column:"param"`
+	Data            string `json:"data" column:"data"`
+	UserAgent       string `json:"userAgent" column:"user_agent"`
+	Error           string `json:"error" column:"error"`
+	UseTime         int    `json:"useTime" column:"use_time"`
+	StartAt         int64  `json:"startAt" column:"start_at"`
+	EndAt           int64  `json:"endAt" column:"end_at"`
+	CreateAt        int64  `json:"createAt" column:"create_at"`
 }
 
 func (this_ *ManageLog) GetTableName() string {

@@ -53,5 +53,13 @@ func InitTestData() (err error) {
 	loginInfo := manage_factory.LoginCache.Get(login.Token)
 	fmt.Println("loginInfo:" + util.GetStringValue(loginInfo))
 
+	_, err = manage_factory.ManageLogStorage.Query(&module_manage.ManageLog{UserId: -1})
+	if err != nil {
+		return
+	}
+	_, err = manage_factory.ManageLogStorage.Page(&module_manage.ManageLog{}, 1, 10)
+	if err != nil {
+		return
+	}
 	return
 }

@@ -4,7 +4,7 @@ go 1.22.0
 
 replace github.com/team-ide/modules => ../../modules
 
-//replace github.com/team-ide/framework => ../../framework
+replace github.com/team-ide/framework => ../../framework
 
 require (
 	github.com/team-ide/framework v1.0.3

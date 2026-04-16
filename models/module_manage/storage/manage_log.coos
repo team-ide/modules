@@ -38,7 +38,8 @@ create table `manage_log`
 
 @Table("manage_log")
 model ManageLog{
-
+    startTimeBefore int64
+    startTimeAfter int64
 }
 
 @Impl("ManageLogStorage", package="module_manage/manage_storage")
@@ -54,14 +55,33 @@ interface IManageLogStorage {
     @Storage()
     func deleteByIds(ids []int64)(res int64, err error)
 
-    @Storage()
+    @Storage(whereInclude="log_id,login_id,user_id,user_name,user_account,ip,path")
+    @If(in.startTimeBefore > 0)
+        @Where("start_at >= ${in.startTimeBefore}")
+    @End
+    @If(in.startTimeAfter > 0)
+        @Where("start_at <= ${in.startTimeAfter}")
+    @End
+    @Order("start_at desc")
     func query(in *ManageLog)(res []*ManageLog, err error)
 
-    @Storage()
+    @Storage(whereInclude="log_id,login_id,user_id,user_name,user_account,ip,path")
+    @If(in.startTimeBefore > 0)
+        @Where("start_at >= ${in.startTimeBefore}")
+    @End
+    @If(in.startTimeAfter > 0)
+        @Where("start_at <= ${in.startTimeAfter}")
+    @End
+    @AppendSql("order by start_at desc")
     func page(in *ManageLog, pageNo int64, pageSize int64)(res []*ManageLog, err error)
 
-    @Storage()
-    @Where("status != 9")
+    @Storage(whereInclude="log_id,login_id,user_id,user_name,user_account,ip,path")
+    @If(in.startTimeBefore > 0)
+        @Where("start_at >= ${in.startTimeBefore}")
+    @End
+    @If(in.startTimeAfter > 0)
+        @Where("start_at <= ${in.startTimeAfter}")
+    @End
     func count(in *ManageLog)(res int64, err error)
 
 }

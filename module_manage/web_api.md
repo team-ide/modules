@@ -125,16 +125,6 @@
 | userAccount | string |  | 用户账号 |
 | ip | string |  | ip |
 | path | string |  | 请求 |
-| comment | string |  | 备注 |
-| method | string |  | 方法 |
-| param | string |  | 参数 |
-| data | string |  | 数据 |
-| userAgent | string |  | user-agent |
-| error | string |  | 异常 |
-| useTime | int |  | 使用时长 |
-| startAt | int64 |  | 开始时间 |
-| endAt | int64 |  | 结束时间 |
-| createAt | int64 |  | 创建时间 |
 | pageNo | int64 |  | 页码 |
 | pageSize | int64 |  | 每页数量 |
 
@@ -534,9 +524,6 @@
 | - | - | - | - |
 | name | string |  | 名称 |
 | account | string |  | 登录账号 |
-| updateAt | int64 |  | 修改 时间戳 毫秒 |
-| deleteAt | int64 |  | 删除 时间戳 毫秒 |
-| disableAt | int64 |  | 禁用 时间戳 毫秒 |
 | password | string |  |  |
 
 
