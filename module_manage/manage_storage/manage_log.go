@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-16 16:25] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-16 17:59] 生成
 
 package manage_storage
 
@@ -54,6 +54,7 @@ func (this_ *ManageLogStorage) Query(in *module_manage.ManageLog) (res []*module
 	if in.StartTimeAfter > 0 {
 		m.Where().AndWhereSql("start_at <= ?", in.StartTimeAfter)
 	}
+	m.AppendSql("start_at desc")
 	res, err = db.DoQueryListWithModel[*module_manage.ManageLog](context.Background(), m)
 	return
 }

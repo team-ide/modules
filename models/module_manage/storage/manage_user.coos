@@ -63,16 +63,16 @@ interface IManageUserStorage {
     @Storage()
     func update(in *ManageUser)(res int64, err error)
 
-    @Value(update_at = _nowTime, status = 2, disable_at = _nowTime)
     @Storage(update)
+    @Value(update_at = _nowTime, status = 2, disable_at = _nowTime)
     func disable(id int64)(res int64, err error)
 
-    @Value(update_at = _nowTime, status = 1)
     @Storage(update)
+    @Value(update_at = _nowTime, status = 1)
     func enable(id int64)(res int64, err error)
 
-    @Value(update_at = _nowTime)
     @Storage()
+    @Value(update_at = _nowTime)
     func updatePassword(id int64, salt string, password string)(res int64, err error)
 
     @Storage()

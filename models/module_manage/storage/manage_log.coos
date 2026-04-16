@@ -62,7 +62,7 @@ interface IManageLogStorage {
     @If(in.startTimeAfter > 0)
         @Where("start_at <= ${in.startTimeAfter}")
     @End
-    @Order("start_at desc")
+    @AppendSql("start_at desc")
     func query(in *ManageLog)(res []*ManageLog, err error)
 
     @Storage(whereInclude="log_id,login_id,user_id,user_name,user_account,ip,path")

@@ -57,16 +57,16 @@ interface IManageLoginStorage {
     @Storage()
     func update(in *ManageLogin)(res int64, err error)
 
-    @Value(update_at = _nowTime, status = 2, logout_at = _nowTime)
     @Storage(update)
+    @Value(update_at = _nowTime, status = 2, logout_at = _nowTime)
     func logout(id int64)(res int64, err error)
 
-    @Value(update_at = _nowTime, use_at = _nowTime)
     @Storage(update)
+    @Value(update_at = _nowTime, use_at = _nowTime)
     func use(id int64)(res int64, err error)
 
-    @Value(delete_at = _nowTime, status = 9)
     @Storage(update)
+    @Value(delete_at = _nowTime, status = 9)
     func deleteByIds(ids []int64)(res int64, err error)
 
     @Storage()
