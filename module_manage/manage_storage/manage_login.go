@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-16 16:17] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-17 09:44] 生成
 
 package manage_storage
 
@@ -107,8 +107,16 @@ func (this_ *ManageLoginStorage) DeleteByIds(ids []int64) (res int64, err error)
 func (this_ *ManageLoginStorage) Query(in *module_manage.ManageLogin) (res []*module_manage.ManageLogin, err error) {
 	m := this_.dbService.ModelSelect(in, func(in *db.ModelSelect) {
 		in.CanSelectAll()
+		in.WhereInclude("login_id", "user_id", "user_name", "user_account", "login_ip", "source_type")
 	})
 	m.Where().AndWhereSql("status != 9")
+	if in.LoginAtBefore > 0 {
+		m.Where().AndWhereSql("login_at >= ?", in.LoginAtBefore)
+	}
+	if in.LoginAtAfter > 0 {
+		m.Where().AndWhereSql("login_at <= ?", in.LoginAtAfter)
+	}
+	m.AppendSql("order by login_at desc")
 	res, err = db.DoQueryListWithModel[*module_manage.ManageLogin](context.Background(), m)
 	return
 }
@@ -116,16 +124,32 @@ func (this_ *ManageLoginStorage) Query(in *module_manage.ManageLogin) (res []*mo
 func (this_ *ManageLoginStorage) Page(in *module_manage.ManageLogin, pageNo int64, pageSize int64) (res []*module_manage.ManageLogin, err error) {
 	m := this_.dbService.ModelSelect(in, func(in *db.ModelSelect) {
 		in.CanSelectAll()
+		in.WhereInclude("login_id", "user_id", "user_name", "user_account", "login_ip", "source_type")
 	})
 	m.Where().AndWhereSql("status != 9")
+	if in.LoginAtBefore > 0 {
+		m.Where().AndWhereSql("login_at >= ?", in.LoginAtBefore)
+	}
+	if in.LoginAtAfter > 0 {
+		m.Where().AndWhereSql("login_at <= ?", in.LoginAtAfter)
+	}
+	m.AppendSql("order by login_at desc")
 	res, err = db.DoQueryPageWithModel[*module_manage.ManageLogin](context.Background(), m, pageNo, pageSize)
 	return
 }
 
 func (this_ *ManageLoginStorage) Count(in *module_manage.ManageLogin) (res int64, err error) {
 	m := this_.dbService.ModelCount(in, func(in *db.ModelCount) {
+		in.WhereInclude("login_id", "user_id", "user_name", "user_account", "login_ip", "source_type")
 	})
 	m.Where().AndWhereSql("status != 9")
+	if in.LoginAtBefore > 0 {
+		m.Where().AndWhereSql("login_at >= ?", in.LoginAtBefore)
+	}
+	if in.LoginAtAfter > 0 {
+		m.Where().AndWhereSql("login_at <= ?", in.LoginAtAfter)
+	}
+	m.AppendSql("order by login_at desc")
 	res, err = m.Count(context.Background())
 	return
 }

@@ -49,14 +49,17 @@ model ManageUser{
 interface IManageUserStorage {
 
     @Storage()
+    @SelectExclude("password, salt")
     func getById(id int64)(res *ManageUser, err error)
 
     @Storage()
+    @SelectExclude("password, salt")
     func getByIds(ids []int64)(res []*ManageUser, err error)
 
     @Value(create_at = _nowTime)
     @DefaultValue(status = 1)
-    @Storage(valueExclude="update_at,deleteAt,disable_at")
+    @Storage()
+    @ValueExclude("update_at, deleteAt, disable_at")
     func insert(in *ManageUser)(res int64, err error)
 
     @Value(update_at = _nowTime)
@@ -88,16 +91,19 @@ interface IManageUserStorage {
     func deleteByIds(ids []int64)(res int64, err error)
 
     @Storage()
+    @SelectExclude("password, salt")
     @Operator(name="%like%")
     @Where("status != 9")
     func query(in *ManageUser)(res []*ManageUser, err error)
 
     @Storage()
+    @SelectExclude("password, salt")
     @Operator(name="%like%")
     @Where("status != 9")
     func page(in *ManageUser, pageNo int64, pageSize int64)(res []*ManageUser, err error)
 
     @Storage()
+    @SelectExclude("password, salt")
     @Operator(name="%like%")
     @Where("status != 9")
     func count(in *ManageUser)(res int64, err error)

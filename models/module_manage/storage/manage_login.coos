@@ -33,7 +33,8 @@ create table `manage_login`
 
 @Table("manage_login")
 model ManageLogin{
-
+    loginAtBefore int64
+    loginAtAfter int64
 }
 
 @Impl("ManageLoginStorage", package="module_manage/manage_storage")
@@ -70,15 +71,39 @@ interface IManageLoginStorage {
     func deleteByIds(ids []int64)(res int64, err error)
 
     @Storage()
+    @WhereInclude("login_id,user_id,user_name,user_account,login_ip,source_type")
     @Where("status != 9")
+    @If(in.loginAtBefore > 0)
+        @Where("login_at >= ${in.loginAtBefore}")
+    @End
+    @If(in.loginAtAfter > 0)
+        @Where("login_at <= ${in.loginAtAfter}")
+    @End
+    @AppendSql("order by login_at desc")
     func query(in *ManageLogin)(res []*ManageLogin, err error)
 
     @Storage()
+    @WhereInclude("login_id,user_id,user_name,user_account,login_ip,source_type")
     @Where("status != 9")
+    @If(in.loginAtBefore > 0)
+        @Where("login_at >= ${in.loginAtBefore}")
+    @End
+    @If(in.loginAtAfter > 0)
+        @Where("login_at <= ${in.loginAtAfter}")
+    @End
+    @AppendSql("order by login_at desc")
     func page(in *ManageLogin, pageNo int64, pageSize int64)(res []*ManageLogin, err error)
 
     @Storage()
+    @WhereInclude("login_id,user_id,user_name,user_account,login_ip,source_type")
     @Where("status != 9")
+    @If(in.loginAtBefore > 0)
+        @Where("login_at >= ${in.loginAtBefore}")
+    @End
+    @If(in.loginAtAfter > 0)
+        @Where("login_at <= ${in.loginAtAfter}")
+    @End
+    @AppendSql("order by login_at desc")
     func count(in *ManageLogin)(res int64, err error)
 
     @Storage()

@@ -125,6 +125,7 @@
 | userAccount | string |  | 用户账号 |
 | ip | string |  | ip |
 | path | string |  | 请求 |
+| comment | string |  | 备注 |
 | pageNo | int64 |  | 页码 |
 | pageSize | int64 |  | 每页数量 |
 
@@ -178,15 +179,6 @@
 | userName | string |  | 用户 名称 |
 | loginIp | string |  | 登录 ip |
 | sourceType | int |  | 来源 类型 |
-| sourceInfo | string |  | 来源 信息 |
-| token | string |  | 验证票据 |
-| status | int |  | 状态 1：登录 2：登出 9：删除 |
-| loginAt | int64 |  | 登录 时间 |
-| logoutAt | int64 |  | 登出 时间 |
-| createAt | int64 |  | 创建 时间 |
-| updateAt | int64 |  | 修改 时间 |
-| deleteAt | int64 |  | 删除 时间 |
-| useAt | int64 |  | 使用 时间 |
 | pageNo | int64 |  | 页码 |
 | pageSize | int64 |  | 每页数量 |
 

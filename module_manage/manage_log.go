@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_log.coos] 在 [2026-04-16 14:18] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_log.coos] 在 [2026-04-17 09:44] 生成
 
 package module_manage
 
@@ -24,8 +24,6 @@ type IManageLogService interface {
 }
 
 type ManageLog struct {
-	StartTimeBefore int64  `json:"startTimeBefore"`
-	StartTimeAfter  int64  `json:"startTimeAfter"`
 	LogId           int64  `json:"logId" column:"log_id"`
 	LoginId         int64  `json:"loginId" column:"login_id"`
 	UserId          int64  `json:"userId" column:"user_id"`
@@ -43,6 +41,8 @@ type ManageLog struct {
 	StartAt         int64  `json:"startAt" column:"start_at"`
 	EndAt           int64  `json:"endAt" column:"end_at"`
 	CreateAt        int64  `json:"createAt" column:"create_at"`
+	StartTimeBefore int64  `json:"startTimeBefore"`
+	StartTimeAfter  int64  `json:"startTimeAfter"`
 }
 
 func (this_ *ManageLog) GetTableName() string {

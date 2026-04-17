@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-16 16:17] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-17 09:44] 生成
 
 package manage_storage
 
@@ -23,6 +23,7 @@ type ManageUserStorage struct {
 func (this_ *ManageUserStorage) GetById(id int64) (res *module_manage.ManageUser, err error) {
 	m := this_.dbService.SqlSelect("manage_user")
 	m.CanSelectAll()
+	m.SelectExclude("password", "salt")
 	m.Where().Eq("user_id", id)
 	res, err = db.DoQueryOneWithModel[*module_manage.ManageUser](context.Background(), m)
 	return
@@ -31,6 +32,7 @@ func (this_ *ManageUserStorage) GetById(id int64) (res *module_manage.ManageUser
 func (this_ *ManageUserStorage) GetByIds(ids []int64) (res []*module_manage.ManageUser, err error) {
 	m := this_.dbService.SqlSelect("manage_user")
 	m.CanSelectAll()
+	m.SelectExclude("password", "salt")
 	m.Where().In("user_id", ids)
 	res, err = db.DoQueryListWithModel[*module_manage.ManageUser](context.Background(), m)
 	return
@@ -141,6 +143,7 @@ func (this_ *ManageUserStorage) DeleteByIds(ids []int64) (res int64, err error) 
 func (this_ *ManageUserStorage) Query(in *module_manage.ManageUser) (res []*module_manage.ManageUser, err error) {
 	m := this_.dbService.ModelSelect(in, func(in *db.ModelSelect) {
 		in.CanSelectAll()
+		in.SelectExclude("password", "salt")
 	})
 	m.WhereOperator("name", "%like%")
 	m.Where().AndWhereSql("status != 9")
@@ -151,6 +154,7 @@ func (this_ *ManageUserStorage) Query(in *module_manage.ManageUser) (res []*modu
 func (this_ *ManageUserStorage) Page(in *module_manage.ManageUser, pageNo int64, pageSize int64) (res []*module_manage.ManageUser, err error) {
 	m := this_.dbService.ModelSelect(in, func(in *db.ModelSelect) {
 		in.CanSelectAll()
+		in.SelectExclude("password", "salt")
 	})
 	m.WhereOperator("name", "%like%")
 	m.Where().AndWhereSql("status != 9")

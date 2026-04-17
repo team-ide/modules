@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-16 17:59] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-17 09:44] 生成
 
 package manage_storage
 
@@ -46,7 +46,7 @@ func (this_ *ManageLogStorage) DeleteByIds(ids []int64) (res int64, err error) {
 func (this_ *ManageLogStorage) Query(in *module_manage.ManageLog) (res []*module_manage.ManageLog, err error) {
 	m := this_.dbService.ModelSelect(in, func(in *db.ModelSelect) {
 		in.CanSelectAll()
-		in.WhereInclude("log_id", "login_id", "user_id", "user_name", "user_account", "ip", "path")
+		in.WhereInclude("log_id", "login_id", "user_id", "user_name", "user_account", "ip", "path", "comment")
 	})
 	if in.StartTimeBefore > 0 {
 		m.Where().AndWhereSql("start_at >= ?", in.StartTimeBefore)
@@ -54,7 +54,7 @@ func (this_ *ManageLogStorage) Query(in *module_manage.ManageLog) (res []*module
 	if in.StartTimeAfter > 0 {
 		m.Where().AndWhereSql("start_at <= ?", in.StartTimeAfter)
 	}
-	m.AppendSql("start_at desc")
+	m.AppendSql("order by start_at desc")
 	res, err = db.DoQueryListWithModel[*module_manage.ManageLog](context.Background(), m)
 	return
 }
@@ -62,7 +62,7 @@ func (this_ *ManageLogStorage) Query(in *module_manage.ManageLog) (res []*module
 func (this_ *ManageLogStorage) Page(in *module_manage.ManageLog, pageNo int64, pageSize int64) (res []*module_manage.ManageLog, err error) {
 	m := this_.dbService.ModelSelect(in, func(in *db.ModelSelect) {
 		in.CanSelectAll()
-		in.WhereInclude("log_id", "login_id", "user_id", "user_name", "user_account", "ip", "path")
+		in.WhereInclude("log_id", "login_id", "user_id", "user_name", "user_account", "ip", "path", "comment")
 	})
 	if in.StartTimeBefore > 0 {
 		m.Where().AndWhereSql("start_at >= ?", in.StartTimeBefore)
@@ -77,7 +77,7 @@ func (this_ *ManageLogStorage) Page(in *module_manage.ManageLog, pageNo int64, p
 
 func (this_ *ManageLogStorage) Count(in *module_manage.ManageLog) (res int64, err error) {
 	m := this_.dbService.ModelCount(in, func(in *db.ModelCount) {
-		in.WhereInclude("log_id", "login_id", "user_id", "user_name", "user_account", "ip", "path")
+		in.WhereInclude("log_id", "login_id", "user_id", "user_name", "user_account", "ip", "path", "comment")
 	})
 	if in.StartTimeBefore > 0 {
 		m.Where().AndWhereSql("start_at >= ?", in.StartTimeBefore)
