@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-14 14:18] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-17 16:28] 生成
 
 package manage_api
 
@@ -19,9 +19,10 @@ type WebApiManageUserService struct {
 func (this_ *WebApiManageUserService) GetWebApi() (webApi *web.WebApi) {
 	webApi = web.NewWebApi("/manage/user/")
 	webApi.Add("add", this_.Add)
+	webApi.Add("list", this_.List)
+	webApi.Add("page", this_.Page)
 	webApi.Add("delete", this_.Delete)
 	webApi.Add("remove", this_.Remove)
-	webApi.Add("a", this_.A)
 	return
 }
 
@@ -32,6 +33,26 @@ func (this_ *WebApiManageUserService) Add(request *web.WebRequest) (res any, err
 	}
 
 	res, err = manage_factory.ManageUserService.Add(in)
+	return
+}
+
+func (this_ *WebApiManageUserService) List(request *web.WebRequest) (res any, err error) {
+	in := &module_manage.ManageUserListRequest{}
+	if err = request.RequestJSON(in); err != nil {
+		return
+	}
+
+	res, err = manage_factory.ManageUserService.List(in)
+	return
+}
+
+func (this_ *WebApiManageUserService) Page(request *web.WebRequest) (res any, err error) {
+	in := &module_manage.ManageUserPageRequest{}
+	if err = request.RequestJSON(in); err != nil {
+		return
+	}
+
+	res, err = manage_factory.ManageUserService.Page(in)
 	return
 }
 
@@ -54,13 +75,5 @@ func (this_ *WebApiManageUserService) Remove(request *web.WebRequest) (res any, 
 	userIds := in.UserIds
 
 	err = manage_factory.ManageUserService.Remove(userIds)
-	return
-}
-
-func (this_ *WebApiManageUserService) A(request *web.WebRequest) (res any, err error) {
-	var token string
-	token = request.GetHeader("token")
-
-	err = manage_factory.ManageUserService.A(token)
 	return
 }

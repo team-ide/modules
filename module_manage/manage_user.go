@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_user.coos] 在 [2026-04-14 14:18] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_manage/storage/manage_user.coos] 在 [2026-04-17 16:28] 生成
 
 package module_manage
 
@@ -10,16 +10,35 @@ type ManageUserAddRequest struct {
 type ManageUserAddResponse struct {
 }
 
+type ManageUserListRequest struct {
+	*ManageUser
+}
+
+type ManageUserListResponse struct {
+	List []*ManageUser `json:"list"`
+}
+
+type ManageUserPageRequest struct {
+	*ManageUser
+	PageNo   int64 `json:"pageNo"`
+	PageSize int64 `json:"pageSize"`
+}
+
+type ManageUserPageResponse struct {
+	Total int64         `json:"total"`
+	List  []*ManageUser `json:"list"`
+}
+
 type ManageUserDeleteRequest struct {
 	UserIds []int64 `json:"userIds"`
 }
 
 type IManageUserService interface {
 	Add(in *ManageUserAddRequest) (res *ManageUserAddResponse, err error)
+	List(in *ManageUserListRequest) (res *ManageUserListResponse, err error)
+	Page(in *ManageUserPageRequest) (res *ManageUserPageResponse, err error)
 	Delete(userIds []int64) (err error)
 	Remove(userIds []int64) (err error)
-	A(token string) (err error)
-	Xxx(in *ManageUserDeleteRequest) (err error)
 }
 
 type ManageUser struct {

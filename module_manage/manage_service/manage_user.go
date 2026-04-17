@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-14 14:18] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-17 16:28] 生成
 
 package manage_service
 
@@ -38,6 +38,31 @@ func (this_ *ManageUserService) Add(in *module_manage.ManageUserAddRequest) (res
 	return
 }
 
+func (this_ *ManageUserService) List(in *module_manage.ManageUserListRequest) (res *module_manage.ManageUserListResponse, err error) {
+	res = &module_manage.ManageUserListResponse{}
+	res.List, err = manage_factory.ManageUserStorage.Query(in.ManageUser)
+	if err != nil {
+		framework.Error("call ManageUserStorage func Query error:" + err.Error())
+		return
+	}
+	return
+}
+
+func (this_ *ManageUserService) Page(in *module_manage.ManageUserPageRequest) (res *module_manage.ManageUserPageResponse, err error) {
+	res = &module_manage.ManageUserPageResponse{}
+	res.List, err = manage_factory.ManageUserStorage.Page(in.ManageUser, in.PageNo, in.PageSize)
+	if err != nil {
+		framework.Error("call ManageUserStorage func Page error:" + err.Error())
+		return
+	}
+	res.Total, err = manage_factory.ManageUserStorage.Count(in.ManageUser)
+	if err != nil {
+		framework.Error("call ManageUserStorage func Count error:" + err.Error())
+		return
+	}
+	return
+}
+
 func (this_ *ManageUserService) Delete(userIds []int64) (err error) {
 	_, err = manage_factory.ManageUserStorage.DeleteByIds(userIds)
 	if err != nil {
@@ -53,14 +78,6 @@ func (this_ *ManageUserService) Remove(userIds []int64) (err error) {
 		framework.Error("call ManageUserStorage func RemoveByIds error:" + err.Error())
 		return
 	}
-	return
-}
-
-func (this_ *ManageUserService) A(token string) (err error) {
-	return
-}
-
-func (this_ *ManageUserService) Xxx(in *module_manage.ManageUserDeleteRequest) (err error) {
 	return
 }
 

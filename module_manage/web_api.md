@@ -519,6 +519,66 @@
 | password | string |  |  |
 
 
+### /manage/user/list 
+
+* 基本信息 
+  - **请求URL**: `/manage/user/list`
+  - **请求方式**: `POST`
+  - **Content-Type**: `application/json`
+  - **需要auth**: `是`
+  - **说明**: 
+
+* Headers 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| userId | int64 |  | 用户 ID |
+| name | string |  | 名称 |
+| account | string |  | 登录账号 |
+| status | int |  | 状态 1：正常 2：禁用 9：删除 |
+| createAt | int64 |  | 创建 时间戳 毫秒 |
+| updateAt | int64 |  | 修改 时间戳 毫秒 |
+| deleteAt | int64 |  | 删除 时间戳 毫秒 |
+| disableAt | int64 |  | 禁用 时间戳 毫秒 |
+
+
+### /manage/user/page 
+
+* 基本信息 
+  - **请求URL**: `/manage/user/page`
+  - **请求方式**: `POST`
+  - **Content-Type**: `application/json`
+  - **需要auth**: `是`
+  - **说明**: 
+
+* Headers 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
+
+* Body (请求体) 
+
+| 参数名 | 类型 | 必填 | 描述 |
+| - | - | - | - |
+| userId | int64 |  | 用户 ID |
+| name | string |  | 名称 |
+| account | string |  | 登录账号 |
+| status | int |  | 状态 1：正常 2：禁用 9：删除 |
+| createAt | int64 |  | 创建 时间戳 毫秒 |
+| updateAt | int64 |  | 修改 时间戳 毫秒 |
+| deleteAt | int64 |  | 删除 时间戳 毫秒 |
+| disableAt | int64 |  | 禁用 时间戳 毫秒 |
+| pageNo | int64 |  | 页码 |
+| pageSize | int64 |  | 每页数量 |
+
+
 ### /manage/user/delete 
 
 * 基本信息 
@@ -561,21 +621,5 @@
 | 参数名 | 类型 | 必填 | 描述 |
 | - | - | - | - |
 | userIds | []int64 |  |  |
-
-
-### /manage/user/a 
-
-* 基本信息 
-  - **请求URL**: `/manage/user/a`
-  - **请求方式**: `POST`
-  - **Content-Type**: `application/json`
-  - **需要auth**: `是`
-  - **说明**: 
-
-* Headers 
-
-| 参数名 | 类型 | 必填 | 描述 |
-| - | - | - | - |
-| token | string | 是 | 用于 auth 认证，通过 /login 接口获取 |
 
 
