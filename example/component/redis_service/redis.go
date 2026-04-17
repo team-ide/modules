@@ -2,7 +2,7 @@ package redis_service
 
 import (
 	"errors"
-	"example/common"
+	"example/component"
 	"github.com/team-ide/framework"
 	"github.com/team-ide/framework/redis"
 	"math"
@@ -29,7 +29,7 @@ func NewRedisService(name string, cfg *redis.Config) (ser redis.IService, err er
 	}
 	framework.Info("组件 [redis] [" + name + "] 创建 成功")
 
-	common.Starter.OnEvent(framework.EventStop, func(args ...any) {
+	component.Starter.OnEvent(framework.EventStop, func(args ...any) {
 		framework.Warn("监听 停止事件 关闭 组件 [redis] [" + name + "]")
 		ser.Close()
 	}, math.MaxInt)

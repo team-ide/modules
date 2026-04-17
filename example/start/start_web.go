@@ -1,7 +1,7 @@
 package start
 
 import (
-	"example/common"
+	"example/component"
 	"example/component/web_service"
 	"example/config"
 	"github.com/team-ide/framework/web"
@@ -12,9 +12,9 @@ import (
 )
 
 func init() {
-	common.Starter.AddServerStartFunc("start web api", 100, startWebApi)
+	component.Starter.AddServerStartFunc("start web api", 100, startWebApi)
 
-	common.Starter.AddServerStartFunc("start web manage", 100, startWebServerManage)
+	component.Starter.AddServerStartFunc("start web manage", 100, startWebServerManage)
 }
 
 func startWebApi() (err error) {
@@ -27,7 +27,7 @@ func startWebApi() (err error) {
 		return
 	}
 
-	common.Starter.SetShouldWait(true)
+	component.Starter.SetShouldWait(true)
 	return
 }
 
@@ -45,6 +45,6 @@ func startWebServerManage() (err error) {
 		return
 	}
 
-	common.Starter.SetShouldWait(true)
+	component.Starter.SetShouldWait(true)
 	return
 }

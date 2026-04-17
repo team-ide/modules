@@ -1,7 +1,7 @@
 package start
 
 import (
-	"example/common"
+	"example/component"
 	"example/component/db_service"
 	"example/component/es_service"
 	"example/component/kafka_service"
@@ -13,7 +13,7 @@ import (
 )
 
 func init() {
-	common.Starter.AddInitComponentFunc("init component", 100, InitComponent)
+	component.Starter.AddInitComponentFunc("init component", 100, InitComponent)
 }
 
 func InitComponent() (err error) {

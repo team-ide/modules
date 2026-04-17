@@ -2,7 +2,7 @@ package kafka_service
 
 import (
 	"errors"
-	"example/common"
+	"example/component"
 	"github.com/team-ide/framework"
 	"github.com/team-ide/framework/kafka"
 	"math"
@@ -29,7 +29,7 @@ func NewKafkaService(name string, cfg *kafka.Config) (ser kafka.IService, err er
 	}
 	framework.Info("组件 [kafka] [" + name + "] 创建 成功")
 
-	common.Starter.OnEvent(framework.EventStop, func(args ...any) {
+	component.Starter.OnEvent(framework.EventStop, func(args ...any) {
 		framework.Warn("监听 停止事件 关闭 组件 [kafka] [" + name + "]")
 		ser.Close()
 	}, math.MaxInt)

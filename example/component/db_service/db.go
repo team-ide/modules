@@ -2,7 +2,7 @@ package db_service
 
 import (
 	"errors"
-	"example/common"
+	"example/component"
 	"math"
 
 	"github.com/team-ide/framework"
@@ -36,7 +36,7 @@ func NewDbService(name string, cfg *db.Config) (ser db.IService, err error) {
 	modelOption := db.NewModelOption()
 	s.SetModelOption(modelOption)
 
-	common.Starter.OnEvent(framework.EventStop, func(args ...any) {
+	component.Starter.OnEvent(framework.EventStop, func(args ...any) {
 		framework.Warn("监听 停止事件 关闭 组件 [db] [" + name + "]")
 		ser.Close()
 	}, math.MaxInt)

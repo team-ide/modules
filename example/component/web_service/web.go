@@ -2,7 +2,7 @@ package web_service
 
 import (
 	"errors"
-	"example/common"
+	"example/component"
 	"github.com/team-ide/framework"
 	"math"
 
@@ -31,7 +31,7 @@ func NewWebService(name string, cfg *web.Config, opts ...web.Option) (ser *web.W
 		return
 	}
 
-	common.Starter.OnEvent(framework.EventStop, func(args ...any) {
+	component.Starter.OnEvent(framework.EventStop, func(args ...any) {
 		framework.Warn("监听 停止事件 关闭 组件 [web] [" + name + "]")
 		ser.Close()
 	}, math.MaxInt)

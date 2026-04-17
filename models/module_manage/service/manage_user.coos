@@ -8,6 +8,27 @@ model ManageUserAddResponse{
 
 }
 
+model ManageUserListRequest extends ManageUser{
+}
+
+model ManageUserListResponse{
+    list []*ManageUser
+}
+
+
+model ManageUserPageRequest extends ManageUser{
+    // 页码
+    pageNo int64
+    // 每页数量
+    pageSize int64
+}
+
+model ManageUserPageResponse{
+    // 总数
+    total int64
+    list []*ManageUser
+}
+
 model ManageUserDeleteRequest{
     userIds []int64
 }
@@ -29,6 +50,15 @@ interface IManageUserService {
 
     }
 
+    @Call(IManageUserStorage.query, assign="res.list")
+    list(in *ManageUserListRequest)(res *ManageUserListResponse,err error){
+    }
+
+    @Call(IManageUserStorage.page, assign="res.list")
+    @Call(IManageUserStorage.count, assign="res.total")
+    page(in *ManageUserPageRequest)(res *ManageUserPageResponse,err error){
+    }
+
     @WebParam(type = "*ManageUserDeleteRequest")
     @Call(IManageUserStorage.deleteByIds(userIds))
     delete(userIds []int64)(err error){
@@ -38,16 +68,6 @@ interface IManageUserService {
     @WebParam(type = "*ManageUserDeleteRequest")
     @Call(IManageUserStorage.removeByIds(userIds))
     remove(userIds []int64)(err error){
-
-    }
-
-    @WebParam(token, place="header")
-    a(token string)(err error){
-
-    }
-
-    @NotWebApi
-    xxx(in *ManageUserDeleteRequest)(err error){
 
     }
 }

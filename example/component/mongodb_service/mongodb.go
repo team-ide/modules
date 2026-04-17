@@ -2,7 +2,7 @@ package mongodb_service
 
 import (
 	"errors"
-	"example/common"
+	"example/component"
 	"github.com/team-ide/framework"
 	"github.com/team-ide/framework/mongodb"
 	"math"
@@ -29,7 +29,7 @@ func NewMongodbService(name string, cfg *mongodb.Config) (ser mongodb.IService, 
 	}
 	framework.Info("组件 [mongodb] [" + name + "] 创建 成功")
 
-	common.Starter.OnEvent(framework.EventStop, func(args ...any) {
+	component.Starter.OnEvent(framework.EventStop, func(args ...any) {
 		framework.Warn("监听 停止事件 关闭 组件 [mongodb] [" + name + "]")
 		ser.Close()
 	}, math.MaxInt)

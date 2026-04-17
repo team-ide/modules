@@ -1,9 +1,8 @@
 package main
 
 import (
+	"example/component"
 	"flag"
-
-	"example/common"
 
 	// 引入 start 包 让包内 init 函数生效
 	_ "example/start"
@@ -23,12 +22,12 @@ func main() {
 	// 解析参数
 	flag.Parse()
 
-	err := common.Starter.Start()
+	err := component.Starter.Start()
 	if err != nil {
 		panic(err)
 	}
 
-	if common.Starter.ShouldWait() {
-		common.Starter.Wait()
+	if component.Starter.ShouldWait() {
+		component.Starter.Wait()
 	}
 }

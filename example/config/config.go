@@ -1,7 +1,7 @@
 package config
 
 import (
-	"example/common"
+	"example/component"
 	"flag"
 	"path/filepath"
 	"strings"
@@ -62,8 +62,8 @@ func SetConfig(c *Config) {
 }
 
 func init() {
-	common.Starter.AddInitConfigFunc("init config", 0, initConfig)
-	common.Starter.AddInitConfigFunc("init logger config", 100, initLoggerConfig)
+	component.Starter.AddInitConfigFunc("init config", 0, initConfig)
+	component.Starter.AddInitConfigFunc("init logger config", 100, initLoggerConfig)
 }
 
 func initConfig() (err error) {

@@ -1,7 +1,7 @@
 package start
 
 import (
-	"example/common"
+	"example/component"
 	"example/component/db_service"
 	"example/factory"
 	"example/storage"
@@ -10,8 +10,8 @@ import (
 )
 
 func init() {
-	common.Starter.AddInitFactoryFunc("init factory", 100, InitFactory)
-	common.Starter.AddInitFactoryFunc("init factory storage", 100, InitFactoryStorage)
+	component.Starter.AddInitFactoryFunc("init factory", 100, InitFactory)
+	component.Starter.AddInitFactoryFunc("init factory storage", 100, InitFactoryStorage)
 }
 
 func InitFactory() (err error) {

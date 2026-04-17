@@ -2,7 +2,7 @@ package start
 
 import (
 	"context"
-	"example/common"
+	"example/component"
 	"example/factory"
 	"example/storage"
 	"fmt"
@@ -14,7 +14,7 @@ import (
 )
 
 func init() {
-	common.Starter.AddInitDataFunc("init test data", 100, InitTestData)
+	component.Starter.AddInitDataFunc("init test data", 100, InitTestData)
 }
 
 var (

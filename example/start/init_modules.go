@@ -1,7 +1,7 @@
 package start
 
 import (
-	"example/common"
+	"example/component"
 	"example/component/db_service"
 	"github.com/team-ide/framework"
 
@@ -11,7 +11,7 @@ import (
 )
 
 func init() {
-	common.Starter.AddInitFactoryFunc("init module mange factory", 200, InitModuleManageFactory)
+	component.Starter.AddInitFactoryFunc("init module mange factory", 200, InitModuleManageFactory)
 }
 
 func InitModuleManageFactory() (err error) {
