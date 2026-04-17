@@ -99,7 +99,7 @@
 
 ## /manage/log/ 
 
-### /manage/log/manage/log/page 
+### /manage/log/page 
 
 * 基本信息 
   - **请求URL**: `/manage/log/page`
@@ -130,7 +130,7 @@
 | pageSize | int64 |  | 每页数量 |
 
 
-### /manage/log/manage/log/delete 
+### /manage/log/delete 
 
 * 基本信息 
   - **请求URL**: `/manage/log/delete`
@@ -154,7 +154,7 @@
 
 ## /manage/login/ 
 
-### /manage/login/manage/login/page 
+### /manage/login/page 
 
 * 基本信息 
   - **请求URL**: `/manage/login/page`
@@ -183,7 +183,7 @@
 | pageSize | int64 |  | 每页数量 |
 
 
-### /manage/login/manage/login/delete 
+### /manage/login/delete 
 
 * 基本信息 
   - **请求URL**: `/manage/login/delete`
@@ -207,7 +207,7 @@
 
 ## /manage/permission/ 
 
-### /manage/permission/manage/permission/add 
+### /manage/permission/add 
 
 * 基本信息 
   - **请求URL**: `/manage/permission/add`
@@ -237,7 +237,7 @@
 | updateAt | int64 |  | 修改 时间戳 毫秒 |
 
 
-### /manage/permission/manage/permission/query 
+### /manage/permission/query 
 
 * 基本信息 
   - **请求URL**: `/manage/permission/query`
@@ -261,7 +261,7 @@
 | userIds | []int64 |  |  |
 
 
-### /manage/permission/manage/permission/queryByIds 
+### /manage/permission/queryByIds 
 
 * 基本信息 
   - **请求URL**: `/manage/permission/queryByIds`
@@ -283,7 +283,7 @@
 | ids | []int64 |  |  |
 
 
-### /manage/permission/manage/permission/queryByRoleIds 
+### /manage/permission/queryByRoleIds 
 
 * 基本信息 
   - **请求URL**: `/manage/permission/queryByRoleIds`
@@ -305,7 +305,7 @@
 | roleIds | []int64 |  |  |
 
 
-### /manage/permission/manage/permission/queryByUserIds 
+### /manage/permission/queryByUserIds 
 
 * 基本信息 
   - **请求URL**: `/manage/permission/queryByUserIds`
@@ -327,7 +327,7 @@
 | userIds | []int64 |  |  |
 
 
-### /manage/permission/manage/permission/delete 
+### /manage/permission/delete 
 
 * 基本信息 
   - **请求URL**: `/manage/permission/delete`
@@ -353,7 +353,7 @@
 
 ## /manage/role/ 
 
-### /manage/role/manage/role/add 
+### /manage/role/add 
 
 * 基本信息 
   - **请求URL**: `/manage/role/add`
@@ -377,7 +377,7 @@
 | updateAt | int64 |  | 修改 时间戳 毫秒 |
 
 
-### /manage/role/manage/role/list 
+### /manage/role/list 
 
 * 基本信息 
   - **请求URL**: `/manage/role/list`
@@ -403,7 +403,7 @@
 | updateAt | int64 |  | 修改 时间戳 毫秒 |
 
 
-### /manage/role/manage/role/delete 
+### /manage/role/delete 
 
 * 基本信息 
   - **请求URL**: `/manage/role/delete`
@@ -425,7 +425,7 @@
 | roleIds | []int64 |  |  |
 
 
-### /manage/role/manage/role/getUserRoles 
+### /manage/role/getUserRoles 
 
 * 基本信息 
   - **请求URL**: `/manage/role/getUserRoles`
@@ -447,7 +447,7 @@
 | userId | int64 |  |  |
 
 
-### /manage/role/manage/role/addRoleUsers 
+### /manage/role/addRoleUsers 
 
 * 基本信息 
   - **请求URL**: `/manage/role/addRoleUsers`
@@ -470,7 +470,7 @@
 | userIds | []int64 |  |  |
 
 
-### /manage/role/manage/role/addRoleUser 
+### /manage/role/addRoleUser 
 
 * 基本信息 
   - **请求URL**: `/manage/role/addRoleUser`
@@ -495,7 +495,7 @@
 
 ## /manage/user/ 
 
-### /manage/user/manage/user/add 
+### /manage/user/add 
 
 * 基本信息 
   - **请求URL**: `/manage/user/add`
@@ -519,7 +519,7 @@
 | password | string |  |  |
 
 
-### /manage/user/manage/user/delete 
+### /manage/user/delete 
 
 * 基本信息 
   - **请求URL**: `/manage/user/delete`
@@ -541,7 +541,7 @@
 | userIds | []int64 |  |  |
 
 
-### /manage/user/manage/user/remove 
+### /manage/user/remove 
 
 * 基本信息 
   - **请求URL**: `/manage/user/remove`
@@ -563,7 +563,7 @@
 | userIds | []int64 |  |  |
 
 
-### /manage/user/manage/user/a 
+### /manage/user/a 
 
 * 基本信息 
   - **请求URL**: `/manage/user/a`
