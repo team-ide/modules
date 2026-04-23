@@ -1,0 +1,68 @@
+package "module_api";
+
+
+@Install("v1.0.0", module="api", source="db_api", package="module_api/api_install");
+create table `oauth_access_token`
+(
+    `name`             varchar(50) not null comment '名称 唯一',
+    `platform_type`    varchar(50) comment '平台类型：wechat_mp, wechat_mini, baidu, github, gitlab, gitee, alipay, dingtalk 等',
+    `oauth_url`       varchar(200) comment 'oauth url 通常不用填写，如果是私服则填写',
+    `app_id`         varchar(200) comment '应用唯一标识（公众号AppId/支付宝AppId/GitHub ClientId等）',
+    `app_secret`     varchar(200) comment '应用 secret',
+    `extends`         varchar(2000) comment '扩展属性',
+    `access_token`     varchar(500) comment 'access_token',
+    `expires_in`    bigint(20)   comment '有效期（秒），部分平台可能返回时间戳，业务层转换后存储',
+    `expires_at`    bigint(20)   comment '实际过期时间 = 当前时间 + expires_in，便于查询过期',
+    `status`       int(10)  default 1  comment '状态 1：正常 2：禁用 9：删除',
+    `created_at`    bigint(20)   comment '创建 时间戳 毫秒',
+    `updated_at`    bigint(20)   comment '修改 时间戳 毫秒',
+    `deleted_at`    bigint(20)   comment '删除 时间戳 毫秒',
+    `disabled_at`   bigint(20)   comment '禁用 时间戳 毫秒',
+    primary key (`name`),
+    index (`platform_type`),
+    index (`app_id`),
+    index (`created_at`),
+    index (`updated_at`),
+    index (`deleted_at`),
+    index (`disabled_at`),
+) comment '第三方平台access_token统一存储表';
+
+
+@Table("oauth_access_token")
+model OauthAccessToken{
+
+}
+
+@Impl("OauthAccessTokenStorage", package="module_api/api_storage")
+@Factory("OauthAccessTokenStorage", package="module_api/api_factory")
+
+@Model(OauthAccessToken)
+interface IOauthAccessTokenStorage {
+
+    @Storage()
+    func getByName(name string)(res *OauthAccessToken, err error)
+
+    @Value(created_at = _nowTime)
+    @DefaultValue(status = 1)
+    @Storage()
+    @ValueExclude("updated_at, deleted_at, disabled_at")
+    func insert(in *OauthAccessToken)(res int64, err error)
+
+    @Value(updated_at = _nowTime)
+    @Storage()
+    func update(in *OauthAccessToken)(res int64, err error)
+
+    @Value(updated_at = _nowTime)
+    @Storage()
+    @Value(updated_at = _nowTime, access_token = accessToken, expires_in = expiresIn, expires_at = _nowTime + expiresIn * 1000)
+    func updateAccessToken(name string, accessToken string, expiresIn int64)(res int64, err error)
+
+    @Storage()
+    @Where("status != 9")
+    func query(in *OauthAccessToken)(res []*OauthAccessToken, err error)
+
+    @Storage()
+    @Where("status != 9")
+    func page(in *OauthAccessToken, pageNo int64, pageSize int64)(res []*OauthAccessToken, err error)
+
+}

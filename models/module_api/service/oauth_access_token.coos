@@ -1,0 +1,14 @@
+package "module_api";
+
+
+
+@Impl("OauthAccessTokenService", package="module_api/api_service", notGen=true)
+@Factory("OauthAccessTokenService", package="module_api/api_factory")
+
+interface IOauthAccessTokenService {
+
+    getAccessToken(name string)(res string, err error){
+
+    }
+
+}

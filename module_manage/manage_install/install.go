@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 16:15] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-23 15:33] 生成
 
 package manage_install
 
@@ -6,7 +6,7 @@ import (
 	"github.com/team-ide/framework/db"
 )
 
-func InstallTable(dbService db.IService) (err error) {
+func InstallDbManageTable(dbService db.IService) (err error) {
 	if err = TableManageLogCreate(dbService); err != nil {
 		return
 	}
