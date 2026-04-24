@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-23 16:32] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-24 16:08] 生成
 
 package api_install
 
@@ -24,19 +24,15 @@ func TableOauthAccessTokenCreate(dbService db.IService) (err error) {
 			{Name: "access_token", DataType: "varchar", Length: 500, Comment: "access_token"},
 			{Name: "expires_in", DataType: "bigint", Length: 20, Comment: "有效期（秒），部分平台可能返回时间戳，业务层转换后存储"},
 			{Name: "expires_at", DataType: "bigint", Length: 20, Comment: "实际过期时间 = 当前时间 + expires_in，便于查询过期"},
-			{Name: "status", DataType: "int", Length: 10, Default: "1", Comment: "状态 1：正常 2：禁用 9：删除"},
+			{Name: "status", DataType: "int", Length: 10, Default: "1", Comment: "状态 1：正常"},
 			{Name: "created_at", DataType: "bigint", Length: 20, Comment: "创建 时间戳 毫秒"},
 			{Name: "updated_at", DataType: "bigint", Length: 20, Comment: "修改 时间戳 毫秒"},
-			{Name: "deleted_at", DataType: "bigint", Length: 20, Comment: "删除 时间戳 毫秒"},
-			{Name: "disabled_at", DataType: "bigint", Length: 20, Comment: "禁用 时间戳 毫秒"},
 		},
 		IndexList: []*db.Index{
 			{Name: "", ColumnNames: []string{"platform_type"}},
 			{Name: "", ColumnNames: []string{"app_id"}},
 			{Name: "", ColumnNames: []string{"created_at"}},
 			{Name: "", ColumnNames: []string{"updated_at"}},
-			{Name: "", ColumnNames: []string{"deleted_at"}},
-			{Name: "", ColumnNames: []string{"disabled_at"}},
 		},
 	}
 	err = db.TableCreate(dbService, moduleName, version, tableName, table)

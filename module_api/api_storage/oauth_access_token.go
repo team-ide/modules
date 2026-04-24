@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-24 16:02] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-24 16:08] 生成
 
 package api_storage
 
@@ -34,7 +34,7 @@ func (this_ *OauthAccessTokenStorage) Insert(in *module_api.OauthAccessToken) (r
 		in.Status = 1
 	}
 	r, err := this_.dbApi.Insert(context.Background(), in, func(in *db.ModelInsert) {
-		in.ValueExclude("updated_at", "deleted_at", "disabled_at")
+		in.ValueExclude("updated_at")
 	})
 	if err != nil {
 		return
@@ -89,5 +89,17 @@ func (this_ *OauthAccessTokenStorage) Page(in *module_api.OauthAccessToken, page
 	})
 	m.Where().AndWhereSql("status != 9")
 	res, err = db.DoQueryPageWithModel[*module_api.OauthAccessToken](context.Background(), m, pageNo, pageSize)
+	return
+}
+
+func (this_ *OauthAccessTokenStorage) DeleteByName(name string) (res int64, err error) {
+	m := this_.dbApi.SqlDelete("oauth_access_token", func(in *db.SqlDelete) {
+	})
+	m.Where().Eq("name", name)
+	r, err := m.Exec(context.Background())
+	if err != nil {
+		return
+	}
+	res, err = r.RowsAffected()
 	return
 }

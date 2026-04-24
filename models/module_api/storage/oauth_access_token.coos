@@ -13,18 +13,14 @@ create table `oauth_access_token`
     `access_token`     varchar(500) comment 'access_token',
     `expires_in`    bigint(20)   comment '有效期（秒），部分平台可能返回时间戳，业务层转换后存储',
     `expires_at`    bigint(20)   comment '实际过期时间 = 当前时间 + expires_in，便于查询过期',
-    `status`       int(10)  default 1  comment '状态 1：正常 2：禁用 9：删除',
+    `status`       int(10)  default 1  comment '状态 1：正常',
     `created_at`    bigint(20)   comment '创建 时间戳 毫秒',
     `updated_at`    bigint(20)   comment '修改 时间戳 毫秒',
-    `deleted_at`    bigint(20)   comment '删除 时间戳 毫秒',
-    `disabled_at`   bigint(20)   comment '禁用 时间戳 毫秒',
     primary key (`name`),
     index (`platform_type`),
     index (`app_id`),
     index (`created_at`),
     index (`updated_at`),
-    index (`deleted_at`),
-    index (`disabled_at`),
 ) comment '第三方平台access_token统一存储表';
 
 
@@ -65,4 +61,6 @@ interface IOauthAccessTokenStorage {
     @Where("status != 9")
     func page(in *OauthAccessToken, pageNo int64, pageSize int64)(res []*OauthAccessToken, err error)
 
+    @Storage()
+    func deleteByName(name string)(res int64, err error)
 }

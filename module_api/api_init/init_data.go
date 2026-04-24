@@ -26,6 +26,15 @@ func InitOauth(name string, platformType, appId, appSecret string, extends map[s
 		return
 	}
 	if len(finds) > 0 {
+		if finds[0].AppId != appId || finds[0].AppSecret != appSecret || finds[0].Extends != d.Extends {
+			_, err = api_factory.OauthAccessTokenStorage.DeleteByName(name)
+			if err != nil {
+				return
+			}
+			finds = nil
+		}
+	}
+	if len(finds) > 0 {
 		_, err = api_factory.OauthAccessTokenStorage.Update(d)
 	} else {
 		_, err = api_factory.OauthAccessTokenStorage.Insert(d)
