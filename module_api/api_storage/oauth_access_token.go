@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-23 16:37] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-24 16:02] 生成
 
 package api_storage
 
@@ -54,16 +54,17 @@ func (this_ *OauthAccessTokenStorage) Update(in *module_api.OauthAccessToken) (r
 	return
 }
 
-func (this_ *OauthAccessTokenStorage) UpdateAccessToken(name string, accessToken string, expiresIn int64) (res int64, err error) {
+func (this_ *OauthAccessTokenStorage) UpdateAccessToken(name string, accessToken string, expiresIn int64, expiresAt int64) (res int64, err error) {
 	m := this_.dbApi.SqlUpdate("oauth_access_token", func(in *db.SqlUpdate) {
 	})
 	m.Value("access_token", accessToken)
 	m.Value("expires_in", expiresIn)
+	m.Value("expires_at", expiresAt)
 	m.Value("updated_at", time.Now().UnixMilli())
 	m.Value("updated_at", time.Now().UnixMilli())
 	m.Value("access_token", accessToken)
 	m.Value("expires_in", expiresIn)
-	m.Value("expires_at", time.Now().UnixMilli()+expiresIn*1000)
+	m.Value("expires_at", expiresAt)
 	m.Where().Eq("name", name)
 	r, err := m.Exec(context.Background())
 	if err != nil {

@@ -12,25 +12,16 @@ import (
 	"github.com/team-ide/modules/module_manage/manage_factory"
 )
 
-func InitManageSuperUser(name string, account string, saveFile string) (err error) {
-
-	superRoleId, err := InitManageSuperRole("超级管理员")
-	if err != nil {
-		return
-	}
-
+func InitManageUser(name string, account string, password string, saveFile string) (userId int64, err error) {
 	// 检测是否有用户  如果没有 生成用户
 	finds, err := manage_factory.ManageUserStorage.QueryByAccount(account)
 	if err != nil {
 		return
 	}
 	if len(finds) > 0 {
+		userId = finds[0].UserId
 		framework.Info("已有 [" + account + "] 管理员用户，不用初始化")
 
-		err = InitManageRoleUser(superRoleId, finds[0].UserId)
-		if err != nil {
-			return
-		}
 		return
 	}
 	user := &module_manage.ManageUser{}
@@ -58,9 +49,11 @@ func InitManageSuperUser(name string, account string, saveFile string) (err erro
 	if user.Salt == "" {
 		user.Salt = util.GetUuid()[0:10]
 	}
-	password := user.Password
 	if password == "" {
-		password = util.GetUuid()[0:10]
+		password = user.Password
+		if password == "" {
+			password = util.GetUuid()[0:10]
+		}
 	}
 
 	passwordMD5 := util.GetMd5(password)
@@ -99,16 +92,11 @@ func InitManageSuperUser(name string, account string, saveFile string) (err erro
 		}
 		framework.Info("账号 [" + account + "] 生成成功，用户信息保存在 [" + saveFile + "] 中")
 	}
-
-	err = InitManageRoleUser(superRoleId, user.UserId)
-	if err != nil {
-		return
-	}
 	return
 }
 
-func InitManageSuperRole(name string) (roleId int64, err error) {
-	finds, err := manage_factory.ManageRoleStorage.Query(&module_manage.ManageRole{IsSuper: 1, Name: name})
+func InitManageRole(name string, isSupper int8) (roleId int64, err error) {
+	finds, err := manage_factory.ManageRoleStorage.Query(&module_manage.ManageRole{IsSuper: isSupper, Name: name})
 	if err != nil {
 		return
 	}
@@ -120,7 +108,7 @@ func InitManageSuperRole(name string) (roleId int64, err error) {
 
 	role := &module_manage.ManageRole{
 		Name:    name,
-		IsSuper: 1,
+		IsSuper: isSupper,
 	}
 	roleId = manage_factory.ManageId.GenRoleId()
 	role.RoleId = roleId

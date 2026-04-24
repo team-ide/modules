@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_api/storage/oauth_access_token.coos] 在 [2026-04-23 16:33] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:module_api/storage/oauth_access_token.coos] 在 [2026-04-24 16:02] 生成
 
 package module_api
 
@@ -35,7 +35,7 @@ type IOauthAccessTokenStorage interface {
 	GetByName(name string) (res *OauthAccessToken, err error)
 	Insert(in *OauthAccessToken) (res int64, err error)
 	Update(in *OauthAccessToken) (res int64, err error)
-	UpdateAccessToken(name string, accessToken string, expiresIn int64) (res int64, err error)
+	UpdateAccessToken(name string, accessToken string, expiresIn int64, expiresAt int64) (res int64, err error)
 	Query(in *OauthAccessToken) (res []*OauthAccessToken, err error)
 	Page(in *OauthAccessToken, pageNo int64, pageSize int64) (res []*OauthAccessToken, err error)
 }

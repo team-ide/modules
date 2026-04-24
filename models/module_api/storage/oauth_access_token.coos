@@ -54,8 +54,8 @@ interface IOauthAccessTokenStorage {
 
     @Value(updated_at = _nowTime)
     @Storage()
-    @Value(updated_at = _nowTime, access_token = accessToken, expires_in = expiresIn, expires_at = _nowTime + expiresIn * 1000)
-    func updateAccessToken(name string, accessToken string, expiresIn int64)(res int64, err error)
+    @Value(updated_at = _nowTime, access_token = accessToken, expires_in = expiresIn, expires_at = expiresAt)
+    func updateAccessToken(name string, accessToken string, expiresIn int64, expiresAt int64)(res int64, err error)
 
     @Storage()
     @Where("status != 9")

@@ -1,0 +1,17 @@
+package "module_api";
+
+@Impl("GenId", package="module_api/api_service")
+@Factory("GenId", package="module_api/api_factory")
+interface IGenId {
+    @GenId("module_api:id")
+    genId()(res int64){
+
+    }
+}
+
+@Factory("OauthAccessTokenCache", package="module_api/api_factory")
+interface IOauthAccessTokenCache {
+    Add(data *OauthAccessToken)
+    Get(name string) (res *OauthAccessToken)
+    GetIfPresent(name string) (res *OauthAccessToken)
+}
