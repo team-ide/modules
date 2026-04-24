@@ -516,6 +516,8 @@
 | - | - | - | - |
 | name | string |  | 名称 |
 | account | string |  | 登录账号 |
+| salt | string |  | 密码 盐 设置密码时候 自动生成 |
+| password | string |  | 密码  md5(salt + md5(password)) |
 | password | string |  |  |
 
 
@@ -541,6 +543,8 @@
 | userId | int64 |  | 用户 ID |
 | name | string |  | 名称 |
 | account | string |  | 登录账号 |
+| salt | string |  | 密码 盐 设置密码时候 自动生成 |
+| password | string |  | 密码  md5(salt + md5(password)) |
 | status | int |  | 状态 1：正常 2：禁用 9：删除 |
 | createAt | int64 |  | 创建 时间戳 毫秒 |
 | updateAt | int64 |  | 修改 时间戳 毫秒 |
@@ -570,6 +574,8 @@
 | userId | int64 |  | 用户 ID |
 | name | string |  | 名称 |
 | account | string |  | 登录账号 |
+| salt | string |  | 密码 盐 设置密码时候 自动生成 |
+| password | string |  | 密码  md5(salt + md5(password)) |
 | status | int |  | 状态 1：正常 2：禁用 9：删除 |
 | createAt | int64 |  | 创建 时间戳 毫秒 |
 | updateAt | int64 |  | 修改 时间戳 毫秒 |

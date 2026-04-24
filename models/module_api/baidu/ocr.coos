@@ -1,0 +1,18 @@
+package "module_api/api_baidu";
+
+@Field(jsonUnderline=true)
+model OcrAccurateBasic{
+    logId int64
+    direction int32
+    wordsResultNum int32
+    wordsResult []*OcrAccurateBasicWord
+}
+
+@Json(underline=true)
+model OcrAccurateBasicWord{
+   words string
+}
+@Http()
+func OcrAccurateBasicByImage64(image64 string)(res *OcrAccurateBasic, err error){
+
+}
