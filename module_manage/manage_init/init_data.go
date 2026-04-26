@@ -121,7 +121,8 @@ func InitManageRole(name string, isSupper int8) (roleId int64, err error) {
 }
 
 func InitManageRoleUser(roleId int64, userId int64) (err error) {
-	finds, err := manage_factory.ManageRoleUserStorage.Query(&module_manage.ManageRoleUser{RoleId: userId, UserId: userId})
+	d := &module_manage.ManageRoleUser{RoleId: roleId, UserId: userId}
+	finds, err := manage_factory.ManageRoleUserStorage.Query(d)
 	if err != nil {
 		return
 	}
@@ -129,12 +130,52 @@ func InitManageRoleUser(roleId int64, userId int64) (err error) {
 		return
 	}
 
-	add := &module_manage.ManageRoleUser{RoleId: userId, UserId: userId}
+	add := d
 	add.RoleUserId = manage_factory.ManageId.GenRoleId()
 	_, err = manage_factory.ManageRoleUserStorage.Insert(add)
 	if err != nil {
 		return
 	}
 	framework.Info("角色 [" + util.GetStringValue(roleId) + "] 用户 [" + util.GetStringValue(userId) + "] 绑定成功")
+	return
+}
+
+func InitManageRolePermission(roleId int64, permissionType string, permission string) (err error) {
+	d := &module_manage.ManagePermission{RoleId: roleId, PermissionType: permissionType, Permission: permission}
+	finds, err := manage_factory.ManagePermissionStorage.Query(d)
+	if err != nil {
+		return
+	}
+	if len(finds) > 0 {
+		return
+	}
+
+	add := d
+	add.PermissionId = manage_factory.ManageId.GenPermissionId()
+	_, err = manage_factory.ManagePermissionStorage.Insert(add)
+	if err != nil {
+		return
+	}
+	framework.Info("角色 [" + util.GetStringValue(roleId) + "] 权限 [" + permission + "] 绑定成功")
+	return
+}
+
+func InitManageUserPermission(userId int64, permissionType string, permission string) (err error) {
+	d := &module_manage.ManagePermission{UserId: userId, PermissionType: permissionType, Permission: permission}
+	finds, err := manage_factory.ManagePermissionStorage.Query(d)
+	if err != nil {
+		return
+	}
+	if len(finds) > 0 {
+		return
+	}
+
+	add := d
+	add.PermissionId = manage_factory.ManageId.GenPermissionId()
+	_, err = manage_factory.ManagePermissionStorage.Insert(add)
+	if err != nil {
+		return
+	}
+	framework.Info("用户 [" + util.GetStringValue(userId) + "] 权限 [" + permission + "] 绑定成功")
 	return
 }

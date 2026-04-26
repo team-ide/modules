@@ -1,4 +1,4 @@
-// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-10 10:27] 生成
+// 文件由 TeamIDE | coos 生成，请勿修改文件内容！通过 [TeamIDE:teamide@163.com] 的 [models:] 在 [2026-04-25 16:11] 生成
 
 package manage_install
 
@@ -16,8 +16,8 @@ func TableManagePermissionCreate(dbService db.IService) (err error) {
 		Comment: "管理后台 权限",
 		ColumnList: []*db.Column{
 			{Name: "permission_id", DataType: "bigint", Length: 20, NotNull: true, Key: true, Comment: "角色 权限 ID"},
-			{Name: "role_id", DataType: "bigint", Length: 20, NotNull: true, Comment: "角色 ID 给角色授权"},
-			{Name: "user_id", DataType: "bigint", Length: 20, NotNull: true, Comment: "用户 ID 给用户授权"},
+			{Name: "role_id", DataType: "bigint", Length: 20, Comment: "角色 ID 给角色授权"},
+			{Name: "user_id", DataType: "bigint", Length: 20, Comment: "用户 ID 给用户授权"},
 			{Name: "permission_type", DataType: "varchar", Length: 100, Comment: "权限类型 path: 路径 button: 按钮 tag: 标签 page: 页面"},
 			{Name: "permission", DataType: "varchar", Length: 1000, Comment: "权限 根据类型设置 如：/admin/user/add"},
 			{Name: "authorizable", DataType: "int", Length: 10, Comment: "可授权 2:不可授权 1:可以授权"},

@@ -51,8 +51,11 @@ func (this_ *LoginFilter) DoFilter(req *web.WebRequest, chain web.WebFilterChain
 			return
 		}
 
+		lastUseAt := login.UseAt
 		login.UseAt = time.Now().UnixMilli()
-		_, _ = manage_factory.ManageLoginStorage.Use(login.LoginId)
+		if (login.UseAt - lastUseAt) > (1000 * 60 * 5) {
+			_, _ = manage_factory.ManageLoginStorage.Use(login.LoginId)
+		}
 	}
 	err = chain(req)
 	return
