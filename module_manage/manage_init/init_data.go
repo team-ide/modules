@@ -65,6 +65,9 @@ func InitManageUser(name string, account string, password string, saveFile strin
 	if err != nil {
 		return
 	}
+
+	userId = user.UserId
+
 	user.Password = password
 
 	if saveFile != "" {
@@ -110,12 +113,12 @@ func InitManageRole(name string, isSupper int8) (roleId int64, err error) {
 		Name:    name,
 		IsSuper: isSupper,
 	}
-	roleId = manage_factory.ManageId.GenRoleId()
-	role.RoleId = roleId
+	role.RoleId = manage_factory.ManageId.GenRoleId()
 	_, err = manage_factory.ManageRoleStorage.Insert(role)
 	if err != nil {
 		return
 	}
+	roleId = role.RoleId
 	framework.Info("角色 [" + name + "] [" + util.GetStringValue(roleId) + "] 生成成功")
 	return
 }
